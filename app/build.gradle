@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -75,7 +76,12 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.4.1'
 
+    // Firebase Authentication
+    implementation 'com.firebaseui:firebase-ui-auth:8.0.0'
 
+    // Firebase Firestore
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.0.2'
 
-
+    // Firebase Storage
+    implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'
 }

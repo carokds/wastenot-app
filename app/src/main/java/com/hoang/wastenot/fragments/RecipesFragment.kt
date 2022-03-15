@@ -35,9 +35,15 @@ viewModel.getRecipes()
         }
 
 
+
 //        binding.
 //            .setOnClickListener {
 //            Navigation.findNavController(view).navigate(R.id.action_recipesFragment_to_recipeDetailFragment)
 //        }
+
+        binding.btnHomeRecipesfragment.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
+        }
+
     }
 }
