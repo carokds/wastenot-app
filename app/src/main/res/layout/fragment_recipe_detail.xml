@@ -7,6 +7,14 @@
     android:layout_margin="10dp"
     tools:context=".fragments.RecipeDetailFragment">
 
+    <ImageButton
+        android:id="@+id/btn_home_recipedetailfragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_home"/>
+
     <ImageView
         android:id="@+id/iv_temporary_detail"
         android:layout_width="100dp"
@@ -20,8 +28,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CHEESEBURGUER"
-        android:textSize="35dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_home_recipedetailfragment"
         app:layout_constraintStart_toEndOf="@id/iv_temporary_detail"
         app:layout_constraintTop_toTopOf="parent" />
 
