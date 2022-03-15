@@ -20,11 +20,7 @@
         android:id="@+id/addFragment"
         android:name="com.hoang.wastenot.fragments.AddFragment"
         android:label="fragment_add"
-        tools:layout="@layout/fragment_add" >
-        <action
-            android:id="@+id/action_addFragment_to_inventoryFragment"
-            app:destination="@id/inventoryFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_add" />
     <fragment
         android:id="@+id/foodDetailFragment"
         android:name="com.hoang.wastenot.fragments.FoodDetailFragment"
@@ -47,5 +43,5 @@
         <action
             android:id="@+id/action_recipesFragment_to_recipeDetailFragment"
             app:destination="@id/recipeDetailFragment" />
-    </fragment>
+    </fragment><action android:id="@+id/action_global_inventoryFragment" app:destination="@id/inventoryFragment"/>
 </navigation>
