@@ -19,5 +19,9 @@ class FoodDetailFragment : Fragment(R.layout.fragment_food_detail){
         binding.btnUseMe.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_foodDetailFragment_to_recipesFragment)
         }
+
+        binding.btnHomeFooddetailfragment.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
+        }
     }
 }

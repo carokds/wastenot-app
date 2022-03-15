@@ -7,6 +7,14 @@
     android:layout_margin="10dp"
     tools:context=".fragments.FoodDetailFragment">
 
+    <ImageButton
+        android:id="@+id/btn_home_fooddetailfragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_home"/>
+
     <ImageView
         android:id="@+id/iv_temporary_detail"
         app:layout_constraintTop_toTopOf="parent"

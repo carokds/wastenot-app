@@ -2,12 +2,6 @@ package com.hoang.wastenot
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.onNavDestinationSelected
-import androidx.navigation.ui.setupWithNavController
 import com.hoang.wastenot.databinding.ActivityMainBinding
 import com.hoang.wastenot.di.KoinGraph
 import org.koin.android.ext.koin.androidContext
@@ -25,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 //        setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment)
@@ -41,5 +36,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+
     }
 }
