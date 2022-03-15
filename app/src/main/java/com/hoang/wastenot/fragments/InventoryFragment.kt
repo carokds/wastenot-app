@@ -25,16 +25,19 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
         binding = FragmentInventoryBinding.bind(view)
 
         binding.btnAdd.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_inventoryFragment_to_addFragment)
+            Navigation.findNavController(view)
+                .navigate(R.id.action_inventoryFragment_to_addFragment)
         }
 
         binding.ivTemporary.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_inventoryFragment_to_foodDetailFragment)
+            Navigation.findNavController(view)
+                .navigate(R.id.action_inventoryFragment_to_foodDetailFragment)
         }
 
         firstCheckOfUser()
-
+        setOnLogoutBtnClicked()
     }
+
 
     private fun firstCheckOfUser() {
         val currentUser = userRepository.getCurrentUser()
@@ -65,6 +68,14 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
             userRepository.launchSignIn(it) {
                 val currentUser = userRepository.getCurrentUser() ?: return@launchSignIn
                 setUserData(currentUser)
+            }
+        }
+    }
+
+    private fun setOnLogoutBtnClicked() {
+        binding.btnLogout.setOnClickListener {
+            userRepository.signOut(requireContext()) {
+                launchSignIn()
             }
         }
     }
