@@ -12,33 +12,24 @@ import com.squareup.picasso.Picasso
 
 class RecipeAdapter() : RecyclerView.Adapter<RecipeAdapter.ListViewHolder>() {
 
-    private var dataSet = mutableListOf<RecipeResponse>()
-
-
-    fun setData(dataParam: List<RecipeResponse>) {
-        dataSet.clear()
-        dataSet.addAll(dataParam)
-        notifyDataSetChanged()
-    }
-
+    var dataSet: List<RecipeResponse> = emptyList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
 
     class ListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-
         val recipeTitle: TextView
         val recipeImage: ImageView
 
-
         init {
-
             recipeTitle = view.findViewById(R.id.tv_recipe_title)
             recipeImage = view.findViewById(R.id.iv_recipe_image)
 
         }
 
     }
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -52,21 +43,16 @@ class RecipeAdapter() : RecyclerView.Adapter<RecipeAdapter.ListViewHolder>() {
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
 
-        val currentData: RecipeResponse = dataSet.get(position)
-
+        val currentData: RecipeResponse = dataSet[position]
         holder.recipeTitle.text = currentData.title
-
         Picasso.get().load("${currentData.image}").into(holder.recipeImage)
 
+    }
 
 
-
-}
-
-
-// Return the size of your dataset (invoked by the layout manager)
-override fun getItemCount(): Int {
-    return dataSet.size
-}
+    // Return the size of your dataset (invoked by the layout manager)
+    override fun getItemCount(): Int {
+        return dataSet.size
+    }
 
 }

@@ -27,7 +27,9 @@
                 android:layout_height="200dp"
                 android:id="@+id/iv_recipe_image"
                 android:textSize="16dp"
-                android:textStyle="italic"/>
+                android:textStyle="italic"
+                android:src="@drawable/test_cheeseburguer"
+                />
 
 
         </LinearLayout>

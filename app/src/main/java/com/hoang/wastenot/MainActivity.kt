@@ -16,21 +16,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
 
-        val navController = findNavController(R.id.nav_host_fragment)
-        val config = AppBarConfiguration(navController.graph)
 
-        binding.toolbar.setupWithNavController(navController, config)
+
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        return true
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
-        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
-    }
 }
