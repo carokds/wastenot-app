@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -40,6 +41,14 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
         binding.btnHomeAddfragment.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
+        }
+
+        val datePicker =
+            MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select date")
+                .build()
+        binding.btnAddExpDate.setOnClickListener {
+            datePicker.show(parentFragmentManager, "tag")
         }
 
         setOnUploadPictureBtnClicked()

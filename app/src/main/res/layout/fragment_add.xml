@@ -40,15 +40,24 @@
         app:layout_constraintTop_toBottomOf="@+id/et_food_name" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_add_exp_date"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Exp date"
+        android:textColor="@color/purple_500"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_food_exp_date" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_add_food_picture"
         style="?attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:text="Upload Picture"
         android:textColor="@color/purple_500"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_food_exp_date" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_add_exp_date" />
 
     <Button
         android:id="@+id/btn_save_food"
