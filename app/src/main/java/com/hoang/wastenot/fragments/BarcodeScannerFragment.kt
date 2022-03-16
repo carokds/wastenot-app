@@ -127,7 +127,6 @@ class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner) {
                         binding.tvScannedData.text = barcode.rawValue
 
                         val valueType = barcode.valueType
-
                     }
                 }
                 .addOnFailureListener {
