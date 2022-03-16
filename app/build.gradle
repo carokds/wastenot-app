@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
     id 'com.google.gms.google-services'
 }
 
@@ -71,6 +72,9 @@ dependencies {
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    // Coil
+    implementation("io.coil-kt:coil:1.4.0")
+
     //ViewModel
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
@@ -84,4 +88,7 @@ dependencies {
 
     // Firebase Storage
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'
+
+    // Material
+    implementation 'com.google.android.material:material:1.6.0-alpha03'
 }

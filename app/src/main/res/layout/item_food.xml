@@ -51,7 +51,7 @@
                 tools:text="Food" />
 
             <TextView
-                android:id="@+id/tv_exp_Date"
+                android:id="@+id/tv_exp_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
