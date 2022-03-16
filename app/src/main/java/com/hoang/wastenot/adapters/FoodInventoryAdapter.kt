@@ -7,12 +7,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.google.android.material.button.MaterialButton
 import com.hoang.wastenot.R
 import com.hoang.wastenot.models.Food
 
 class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsViewHolder>() {
 
     var onItemClicked: (Food) -> Unit = { }
+    var onDeleteBtnClicked: (Food) -> Unit = { }
+    var onRecipesBtnClicked: (Food) -> Unit = { }
+
     private var dataSet = mutableListOf<Food>()
 
     fun setData(dataParam: List<Food>) {
@@ -35,6 +39,7 @@ class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsVi
         holder.foodName.text = currentData.name
         holder.foodExpDate.text = currentData.expirationDate
         holder.itemView.setOnClickListener { onItemClicked(currentData) }
+        holder.deleteBtn.setOnClickListener { onDeleteBtnClicked(currentData) }
     }
 
     override fun getItemCount(): Int {
@@ -45,6 +50,8 @@ class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsVi
         var foodImage: ImageView = view.findViewById(R.id.iv_food)
         var foodName: TextView = view.findViewById(R.id.tv_food_name)
         var foodExpDate: TextView = view.findViewById(R.id.tv_exp_date)
+        var deleteBtn: MaterialButton = view.findViewById(R.id.btn_delete)
+        var recipesBtn: MaterialButton = view.findViewById(R.id.btn_recipes)
 
     }
 }
