@@ -19,5 +19,9 @@ class AddFragment : Fragment(R.layout.fragment_add) {
         binding.btnHomeAddfragment.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
         }
+
+        binding.btnScan.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_addFragment_to_barcodeScannerFragment)
+        }
     }
 }
