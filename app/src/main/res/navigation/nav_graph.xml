@@ -20,7 +20,11 @@
         android:id="@+id/addFragment"
         android:name="com.hoang.wastenot.fragments.AddFragment"
         android:label="fragment_add"
-        tools:layout="@layout/fragment_add" />
+        tools:layout="@layout/fragment_add" >
+        <action
+            android:id="@+id/action_addFragment_to_barcodeScannerFragment"
+            app:destination="@id/barcodeScannerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/foodDetailFragment"
         android:name="com.hoang.wastenot.fragments.FoodDetailFragment"
@@ -44,4 +48,9 @@
             android:id="@+id/action_recipesFragment_to_recipeDetailFragment"
             app:destination="@id/recipeDetailFragment" />
     </fragment><action android:id="@+id/action_global_inventoryFragment" app:destination="@id/inventoryFragment"/>
+    <fragment
+        android:id="@+id/barcodeScannerFragment"
+        android:name="com.hoang.wastenot.fragments.BarcodeScannerFragment"
+        android:label="fragment_barcode_scanner"
+        tools:layout="@layout/fragment_barcode_scanner" />
 </navigation>
