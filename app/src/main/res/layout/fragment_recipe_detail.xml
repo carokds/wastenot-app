@@ -15,34 +15,42 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/ic_home"/>
 
-    <ImageView
-        android:id="@+id/iv_temporary_detail"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/test_cheeseburguer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_title_recipe_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CHEESEBURGUER"
-        android:textSize="25dp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_home_recipedetailfragment"
-        app:layout_constraintStart_toEndOf="@id/iv_temporary_detail"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_recipe_detal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Here all the ingredients and instructions"
-        android:textSize="15dp"
+    <WebView android:id="@+id/webView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_home_recipedetailfragment"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+<!--    <ImageView-->
+<!--        android:id="@+id/iv_temporary_detail"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:src="@drawable/test_cheeseburguer"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_title_recipe_detail"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="CHEESEBURGUER"-->
+<!--        android:textSize="25dp"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/btn_home_recipedetailfragment"-->
+<!--        app:layout_constraintStart_toEndOf="@id/iv_temporary_detail"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_recipe_detal"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Here all the ingredients and instructions"-->
+<!--        android:textSize="15dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
