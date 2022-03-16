@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -17,6 +19,7 @@ import com.hoang.wastenot.models.Food
 import com.hoang.wastenot.repositories.UserRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import java.util.*
 
 class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
@@ -24,6 +27,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
     private val userRepository: UserRepository by inject()
     private val TAG = "AddFragment"
     private var picUrl: String? = null
+    private var expDate: Date? = null
     private val launchCameraIntentLauncher =
         registerForActivityResult(ActivityResultContracts.OpenDocument()) { fileUri ->
             if (fileUri != null) {
@@ -43,8 +47,24 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         }
 
 
+        val datePicker =
+            MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select date")
+                .build()
+
+        binding.btnAddExpDate.setOnClickListener {
+            datePicker
+                .show(parentFragmentManager, "tag")
+            datePicker
+                .addOnPositiveButtonClickListener {
+                    expDate = Date(it)
+
+                }
+
+
         binding.btnScan.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_addFragment_to_barcodeScannerFragment)
+
         }
 
         setOnUploadPictureBtnClicked()
@@ -95,16 +115,20 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                 Toast.makeText(activity, "You haven't selected a picture yet", Toast.LENGTH_SHORT)
                     .show()
                 return@setOnClickListener
+            } else if (expDate == null) {
+                Toast.makeText(activity, "You haven't selected an expiration date", Toast.LENGTH_SHORT)
+                    .show()
+                return@setOnClickListener
             }
 
             val currentUser = userRepository.getCurrentUser() ?: return@setOnClickListener
             val foodName = binding.etFoodName.text.toString()
-            val foodExpDate = binding.etFoodExpDate.text.toString()
+//            val foodExpDate = binding.etFoodExpDate.text.toString()
 
             val food = Food(
                 "",
                 foodName,
-                foodExpDate,
+                Timestamp(expDate!!),
                 picUrl,
                 currentUser.email
             )

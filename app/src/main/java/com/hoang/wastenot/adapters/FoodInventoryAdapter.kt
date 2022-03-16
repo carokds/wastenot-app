@@ -37,7 +37,7 @@ class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsVi
             placeholder(R.drawable.placeholder_img)
         }
         holder.foodName.text = currentData.name
-        holder.foodExpDate.text = currentData.expirationDate
+        holder.foodExpDate.text = currentData.expirationDate.toDate().toString()
         holder.itemView.setOnClickListener { onItemClicked(currentData) }
         holder.deleteBtn.setOnClickListener { onDeleteBtnClicked(currentData) }
     }
