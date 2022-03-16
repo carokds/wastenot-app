@@ -42,6 +42,14 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
                         bundle
                     )
                 }
+
+                onDeleteBtnClicked = { food ->
+                    Firebase.firestore.collection("foods").document(food.id)
+                        .delete()
+                        .addOnSuccessListener { Log.d("x", "DocumentSnapshot successfully deleted!") }
+                        .addOnFailureListener { e -> Log.w("x", "Error deleting document", e) }
+                }
+
             }
         }
 
@@ -50,6 +58,7 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
         setOnAddBtnClicked(view)
 
         setOnLogoutBtnClicked()
+
     }
 
     private fun setOnAddBtnClicked(view: View) {
@@ -73,13 +82,6 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
     private fun setUserData(currentUser: User) {
         binding.tvHello.text = "Hello ${currentUser.displayName}!"
 
-        Firebase.firestore.collection("foods").get().addOnSuccessListener {
-            it.forEach { doc->
-                Log.e("Result", doc.data.toString())
-            }
-        }
-
-        Log.e("User", currentUser.email)
         Firebase.firestore.collection("foods")
             .whereEqualTo("ownerEmail", currentUser.email)
             .addSnapshotListener { documents, e ->

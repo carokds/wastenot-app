@@ -64,7 +64,7 @@
                 tools:text="23-04-22" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_decline"
+                android:id="@+id/btn_recipes"
                 style="?attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
                 app:layout_constraintStart_toEndOf="@+id/iv_food" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_join"
+                android:id="@+id/btn_delete"
                 style="?attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
