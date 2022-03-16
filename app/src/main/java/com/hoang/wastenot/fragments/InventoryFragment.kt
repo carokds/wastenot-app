@@ -29,7 +29,7 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
                 .navigate(R.id.action_inventoryFragment_to_addFragment)
         }
 
-        binding.ivTemporary.setOnClickListener {
+        binding.rvUserFoods.setOnClickListener {
             Navigation.findNavController(view)
                 .navigate(R.id.action_inventoryFragment_to_foodDetailFragment)
         }

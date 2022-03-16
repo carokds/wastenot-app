@@ -1,7 +1,7 @@
 package com.hoang.wastenot
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.hoang.wastenot.databinding.ActivityMainBinding
 import com.hoang.wastenot.di.KoinGraph
 import org.koin.android.ext.koin.androidContext
