@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_margin="10dp"
     tools:context=".fragments.AddFragment">
 
@@ -11,19 +11,53 @@
         android:id="@+id/btn_home_addfragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_home"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/ic_home"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:textSize="35dp"
         android:id="@+id/tv_title_add"
-        android:text="Add to inventory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:text="Add to inventory"
+        android:textSize="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_food_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Food"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_add" />
+
+    <EditText
+        android:id="@+id/et_food_exp_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Expiration date"
+        app:layout_constraintTop_toBottomOf="@+id/et_food_name" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_add_food_picture"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Upload Picture"
+        android:textColor="@color/purple_500"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_food_exp_date" />
+
+    <Button
+        android:id="@+id/btn_save_food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_add_food_picture" />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_scan"
