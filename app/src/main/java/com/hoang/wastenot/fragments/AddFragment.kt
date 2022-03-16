@@ -46,6 +46,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
         }
 
+
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
@@ -59,6 +60,11 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                     expDate = Date(it)
 
                 }
+
+
+        binding.btnScan.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_addFragment_to_barcodeScannerFragment)
+
         }
 
         setOnUploadPictureBtnClicked()

@@ -21,19 +21,24 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentRecipesBinding.bind(view)
-viewModel.getRecipes()
+        viewModel.getRecipes()
 
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(context)
-            adapter = RecipeAdapter()
+            adapter = RecipeAdapter().apply {
+                onItemClicked = {
+//                it.id?.let { it1 -> viewModel.getRecipeUrl(it1) }
+                    val bundle = Bundle()
+                    it.id?.let { it1 -> bundle.putInt("RecipeId", it1) }
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_recipesFragment_to_recipeDetailFragment, bundle)
+                }}
             }
+
 
         viewModel.recipes.observe(viewLifecycleOwner) {
             (binding.recyclerView.adapter as RecipeAdapter).dataSet = it
-//            Toast.makeText(context, "${it[0].title}",Toast. LENGTH_LONG ).show()
-
         }
-
 
 
 //        binding.
