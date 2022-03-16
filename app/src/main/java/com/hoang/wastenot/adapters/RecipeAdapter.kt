@@ -12,6 +12,8 @@ import com.squareup.picasso.Picasso
 
 class RecipeAdapter() : RecyclerView.Adapter<RecipeAdapter.ListViewHolder>() {
 
+    var onItemClicked: (RecipeResponse) -> Unit ={}
+
     var dataSet: List<RecipeResponse> = emptyList()
         set(value) {
             field = value
@@ -46,6 +48,7 @@ class RecipeAdapter() : RecyclerView.Adapter<RecipeAdapter.ListViewHolder>() {
         val currentData: RecipeResponse = dataSet[position]
         holder.recipeTitle.text = currentData.title
         Picasso.get().load("${currentData.image}").into(holder.recipeImage)
+        holder.itemView.setOnClickListener { onItemClicked(currentData) }
 
     }
 

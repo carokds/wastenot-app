@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+//import com.google.firebase.firestore.ktx.firestore
+//import com.google.firebase.ktx.Firebase
 import com.hoang.wastenot.R
 import com.hoang.wastenot.databinding.FragmentInventoryBinding
 import com.hoang.wastenot.models.Food
@@ -34,6 +34,13 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
                 .navigate(R.id.action_inventoryFragment_to_foodDetailFragment)
         }
 
+        binding.ivTemporary.setOnClickListener{
+            Navigation.findNavController(view)
+                .navigate(R.id.action_inventoryFragment_to_foodDetailFragment)
+        }
+
+
+
         firstCheckOfUser()
         setOnLogoutBtnClicked()
     }
@@ -52,15 +59,15 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
     private fun setUserData(currentUser: User) {
         binding.tvHello.text = "Hello ${currentUser.displayName}!"
 
-        Firebase.firestore.collection("foods")
-            .whereArrayContains("ownerEmail", currentUser.email)
-            .addSnapshotListener { documents, e ->
-                documents?.map {
-                    it.toObject(Food::class.java).apply {
-                        id = it.id
-                    }
-                }
-            }
+//        Firebase.firestore.collection("foods")
+//            .whereArrayContains("ownerEmail", currentUser.email)
+//            .addSnapshotListener { documents, e ->
+//                documents?.map {
+//                    it.toObject(Food::class.java).apply {
+//                        id = it.id
+//                    }
+//                }
+//            }
     }
 
     private fun launchSignIn() {
