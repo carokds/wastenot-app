@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
     id 'com.google.gms.google-services'
 }
 
@@ -50,8 +51,6 @@ dependencies {
     def nav_version = "2.4.1"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
-    implementation("androidx.navigation:navigation-compose:$nav_version")
 
     //Koin
     def koin_version = "3.1.5"
@@ -71,10 +70,14 @@ dependencies {
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    // Coil
+    implementation("io.coil-kt:coil:1.4.0")
+
     //ViewModel
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.4.1'
+
 
     // Firebase Authentication
     implementation 'com.firebaseui:firebase-ui-auth:8.0.0'
@@ -84,6 +87,7 @@ dependencies {
 
     // Firebase Storage
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'
+
 
     //ML Kit Barcode
     implementation 'com.google.mlkit:barcode-scanning:17.0.2'
@@ -96,4 +100,8 @@ dependencies {
     implementation "androidx.camera:camera-video:${camerax_version}"
     implementation "androidx.camera:camera-view:${camerax_version}"
     implementation "androidx.camera:camera-extensions:${camerax_version}"
+    
+    // Material
+    implementation 'com.google.android.material:material:1.6.0-alpha03'
+
 }
