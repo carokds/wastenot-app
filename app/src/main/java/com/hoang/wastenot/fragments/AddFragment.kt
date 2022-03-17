@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
@@ -46,7 +47,15 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
         }
 
+        binding.btnGoToCategories.setOnClickListener {
+            findNavController().navigate(R.id.action_addFragment_to_categoryFragment)
+        }
 
+        setOnDatePickerClicked(view)
+
+    }
+
+    private fun setOnDatePickerClicked(view: View) {
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
@@ -133,7 +142,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
             val currentUser = userRepository.getCurrentUser() ?: return@setOnClickListener
             val foodName = binding.etFoodName.text.toString()
-//            val foodExpDate = binding.etFoodExpDate.text.toString()
 
             val food = Food(
                 "",

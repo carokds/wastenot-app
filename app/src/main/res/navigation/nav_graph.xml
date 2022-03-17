@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_addFragment_to_barcodeScannerFragment"
             app:destination="@id/barcodeScannerFragment" />
+        <action
+            android:id="@+id/action_addFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/foodDetailFragment"
@@ -53,4 +56,8 @@
         android:name="com.hoang.wastenot.fragments.BarcodeScannerFragment"
         android:label="fragment_barcode_scanner"
         tools:layout="@layout/fragment_barcode_scanner" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.hoang.wastenot.fragments.CategoryFragment"
+        android:label="CategoryFragment" />
 </navigation>
