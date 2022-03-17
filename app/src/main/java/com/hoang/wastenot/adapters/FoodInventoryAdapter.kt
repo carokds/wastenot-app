@@ -10,6 +10,7 @@ import coil.load
 import com.google.android.material.button.MaterialButton
 import com.hoang.wastenot.R
 import com.hoang.wastenot.models.Food
+import java.util.*
 
 class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsViewHolder>() {
 
@@ -37,7 +38,10 @@ class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsVi
             placeholder(R.drawable.placeholder_img)
         }
         holder.foodName.text = currentData.name
-        holder.foodExpDate.text = currentData.expirationDate.toDate().toString()
+
+        val expDate = "${currentData.expirationDate.toDate().date}-${currentData.expirationDate.toDate().month+1}-${currentData.expirationDate.toDate().year-100}"
+//        currentData.expirationDate.toDate().toString()
+        holder.foodExpDate.text = expDate
         holder.itemView.setOnClickListener { onItemClicked(currentData) }
         holder.deleteBtn.setOnClickListener { onDeleteBtnClicked(currentData) }
     }
