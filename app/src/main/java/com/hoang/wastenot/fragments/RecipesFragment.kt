@@ -29,7 +29,11 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
                 onItemClicked = {
 //                it.id?.let { it1 -> viewModel.getRecipeUrl(it1) }
                     val bundle = Bundle()
-                    it.id?.let { it1 -> bundle.putInt("RecipeId", it1) }
+                    it.id.let { it1 ->
+                        if (it1 != null) {
+                            bundle.putInt("RecipeId", it1)
+                        }
+                    }
                     Navigation.findNavController(view)
                         .navigate(R.id.action_recipesFragment_to_recipeDetailFragment, bundle)
                 }}
@@ -37,7 +41,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
 
         viewModel.recipes.observe(viewLifecycleOwner) {
-            (binding.recyclerView.adapter as RecipeAdapter).dataSet = it
+            (binding.recyclerView.adapter as RecipeAdapter).dataSet = it.results
         }
 
 

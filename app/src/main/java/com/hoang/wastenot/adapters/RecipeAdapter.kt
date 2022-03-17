@@ -10,16 +10,15 @@ import com.hoang.wastenot.R
 import com.hoang.wastenot.api.RecipeResponse
 import com.squareup.picasso.Picasso
 
-class RecipeAdapter() : RecyclerView.Adapter<RecipeAdapter.ListViewHolder>() {
+class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.ListViewHolder>() {
 
     var onItemClicked: (RecipeResponse) -> Unit ={}
 
     var dataSet: List<RecipeResponse> = emptyList()
         set(value) {
             field = value
-            notifyDataSetChanged()
+            notifyDataSetChanged() //tells adapter the data has changed
         }
-
 
     class ListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val recipeTitle: TextView
@@ -45,7 +44,7 @@ class RecipeAdapter() : RecyclerView.Adapter<RecipeAdapter.ListViewHolder>() {
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
 
-        val currentData: RecipeResponse = dataSet[position]
+        val currentData: RecipeResponse = dataSet.get(position)
         holder.recipeTitle.text = currentData.title
         Picasso.get().load("${currentData.image}").into(holder.recipeImage)
         holder.itemView.setOnClickListener { onItemClicked(currentData) }
