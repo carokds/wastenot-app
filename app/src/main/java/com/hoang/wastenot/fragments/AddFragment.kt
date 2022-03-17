@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -70,6 +71,14 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setFragmentResultListener("Category") { category, bundle ->
+            binding.tvCategorySelected.text = bundle.getString("Category") ?: "select a category"
+        }
+    }
+
     private fun setOnDatePickerClicked(view: View) {
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
@@ -128,19 +137,25 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         binding.btnSaveFood.setOnClickListener {
 
             if (picUrl == null) {
-                Toast.makeText(activity, "You haven't selected a picture yet", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "You haven't selected a picture yet", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             } else if (expDate == null) {
-                Toast.makeText(activity, "You haven't selected an expiration date", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    activity,
+                    "You haven't selected an expiration date",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
             }
 
             val currentUser = userRepository.getCurrentUser() ?: return@setOnClickListener
             val foodName = binding.etFoodName.text.toString()
             category = binding.tvCategorySelected.text.toString()
+            val foodRef = Firebase.firestore.collection("foods").document()
 
             val food = Food(
-                "",
+                foodRef.id,
                 foodName,
                 Timestamp(expDate!!),
                 picUrl,
@@ -148,13 +163,11 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                 currentUser.email
             )
 
-            val database = Firebase.firestore
-            database.collection("foods")
-                .add(food)
+            foodRef.set(food)
                 .addOnSuccessListener { documentReference ->
                     Log.d(
                         "Successful Add Message",
-                        "DocumentSnapshot added with ID: ${documentReference.id}"
+                        "DocumentSnapshot added with ID: ${foodRef.id}"
                     )
                 }
                 .addOnFailureListener { e ->
