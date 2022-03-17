@@ -30,8 +30,12 @@ class CategoryFragment : Fragment(R.layout.fragment_categories) {
                 onItemClicked = {
                     val bundle = Bundle()
                     bundle.putString("Category", it)
-//                    findNavController().navigate(R.id.addFragment, bundle)
-                    findNavController().navigateUp()
+                    findNavController().navigate(R.id.addFragment, bundle)
+//                    val newGraph = findNavController().graph
+//                    newGraph.remove(newGraph.findNode(R.id.categoryFragment))
+//                    findNavController().setGraph(., bundle)
+//
+//                    findNavController().navigateUp()
                 }
             }
         }
