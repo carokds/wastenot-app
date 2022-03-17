@@ -10,7 +10,8 @@ data class Food(
     val name: String,
     val expirationDate: Timestamp,
     val pictureUrl: String?,
+    val category: String,
     val ownerEmail: String,
 ) : Parcelable {
-    constructor() : this("", "", Timestamp.now(), "", "")
+    constructor() : this("", "", Timestamp.now(), "", "", "")
 }
