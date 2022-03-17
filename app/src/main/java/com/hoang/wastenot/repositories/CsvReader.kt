@@ -6,26 +6,21 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 
-class CSVReader(val context: Context, val fileName: String) {
+class CSVReader(val context: Context, private val fileName: String) {
 
-    var rows: MutableList<Array<String>> = ArrayList()
+    private var rows: MutableList<String> = ArrayList()
 
     @Throws(IOException::class)
-    fun readCSV(): MutableList<Array<String>> {
+    fun readCSV(): MutableList<String> {
         val input: InputStream = context.resources.openRawResource(
-            context.resources.getIdentifier(
-                fileName,
-                "raw", context.packageName
-            )
+            context.resources.getIdentifier(fileName, "raw", context.packageName)
         )
         val isr = InputStreamReader(input)
         val br = BufferedReader(isr)
-        val csvSplitBy = ";"
 
         var line = br.readLine()
         while (line != null) {
-            val row = line.split(csvSplitBy.toRegex()).toTypedArray()
-            rows.add(row)
+            rows.add(line)
             line = br.readLine()
         }
         return rows

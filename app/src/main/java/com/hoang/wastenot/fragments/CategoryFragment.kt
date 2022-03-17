@@ -17,14 +17,13 @@ class CategoryFragment : Fragment(R.layout.fragment_categories) {
     }
 
     private fun readIngredients() {
-        var rows = mutableListOf<Array<String>>()
+        var rows = mutableListOf<String>()
         val csvReader = CSVReader(requireContext(), "top_1k_ingredients")
         try {
             rows = csvReader.readCSV()
         } catch (e: IOException) {
             e.printStackTrace()
         }
-
         rows.size
     }
 }
