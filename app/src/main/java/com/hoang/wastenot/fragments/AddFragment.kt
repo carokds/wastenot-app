@@ -62,13 +62,15 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                 }
 
 
-        binding.btnScan.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_addFragment_to_barcodeScannerFragment)
+            binding.btnScan.setOnClickListener {
+                Navigation.findNavController(view)
+                    .navigate(R.id.action_addFragment_to_barcodeScannerFragment)
 
+            }
+
+            setOnUploadPictureBtnClicked()
+            setOnSaveButtonClicked()
         }
-
-        setOnUploadPictureBtnClicked()
-        setOnSaveButtonClicked()
     }
 
 
@@ -112,11 +114,19 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
     private fun setOnSaveButtonClicked() {
         binding.btnSaveFood.setOnClickListener {
             if (picUrl == null) {
-                Toast.makeText(activity, "You haven't selected a picture yet", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    activity,
+                    "You haven't selected a picture yet",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
                 return@setOnClickListener
             } else if (expDate == null) {
-                Toast.makeText(activity, "You haven't selected an expiration date", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    activity,
+                    "You haven't selected an expiration date",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
                 return@setOnClickListener
             }
