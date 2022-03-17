@@ -1,47 +1,45 @@
 package com.hoang.wastenot
 
 
-import android.R
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
 import android.os.Build
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
-import com.hoang.wastenot.databinding.NotificationsFragmentBinding
+import androidx.core.app.NotificationManagerCompat
+
+private const val CHANNEL_ID = "EXPIRY"
+private const val notificationId = 100
 
 
-class Notifications : AppCompatActivity() {
+class Notifications : BroadcastReceiver() {
 
-    private val CHANNEL_ID = "EXPIRY"
+    override fun onReceive(context: Context?, intent: Intent?) {
+        intent!!.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
-    private lateinit var binding: NotificationsFragmentBinding
+        val pendingIntent: PendingIntent =
+            PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = NotificationsFragmentBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.stat_notify_chat)
+        val builder = NotificationCompat.Builder(context!!, "Expiry")
+            .setSmallIcon(R.drawable.bell)
             .setContentTitle("Your ingredient is expiring soon!")
             .setContentText("Check suggested recipes")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
             .setAutoCancel(true)
+
+        createNotificationChannel(context)
+        with(NotificationManagerCompat.from(context)) {
+            notify(notificationId, builder.build())
+        }
     }
 
-
-
-    private val pendingIntent: PendingIntent =
-        PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-
-    private fun createNotificationChannel() {
+    private fun createNotificationChannel(context: Context) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Expiry Notification"
@@ -50,16 +48,15 @@ class Notifications : AppCompatActivity() {
             val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                 description = descriptionText
             }
+            (context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(channel)
 
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-
-            }
         }
+    }
+
 
 
     }
+
 
 
 
