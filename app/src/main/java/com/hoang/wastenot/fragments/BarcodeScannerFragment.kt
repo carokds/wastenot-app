@@ -21,12 +21,22 @@ import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
 import com.hoang.wastenot.R
 import com.hoang.wastenot.databinding.FragmentBarcodeScannerBinding
+import com.hoang.wastenot.repositories.BarcodeRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner) {
+class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner), KoinComponent {
     private lateinit var binding: FragmentBarcodeScannerBinding
     private lateinit var cameraExecutor: ExecutorService
+    private lateinit var test: String
+
+    val repository : BarcodeRepository by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -124,7 +134,7 @@ class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner) {
                     barcodes.forEach { barcode ->
                         val rawValue = barcode.rawValue
 
-                        binding.tvScannedData.text = barcode.rawValue
+                        getInfo(barcode.rawValue)
 
                         val valueType = barcode.valueType
                     }
@@ -139,6 +149,18 @@ class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner) {
                     imageProxy.close()
 
                 }
+        }
+    }
+
+    private fun getInfo(barcode: String?) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val barcodeResponse = repository.getBarcodeResponse(barcode)
+            withContext(Dispatchers.IO){
+                if (barcodeResponse != null) {
+                    test = barcodeResponse.product?.brands.toString()
+                    binding.tvScannedData.text = test
+                }
+            }
         }
     }
 
