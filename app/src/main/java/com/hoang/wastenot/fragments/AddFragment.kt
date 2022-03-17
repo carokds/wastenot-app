@@ -62,7 +62,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         binding.btnScan.setOnClickListener {
             Navigation.findNavController(view)
                 .navigate(R.id.action_addFragment_to_barcodeScannerFragment)
-
         }
 
         setOnUploadPictureBtnClicked()
@@ -83,7 +82,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             datePicker
                 .addOnPositiveButtonClickListener {
                     expDate = Date(it)
-
                 }
         }
     }
