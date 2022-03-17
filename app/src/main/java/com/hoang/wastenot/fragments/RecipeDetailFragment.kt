@@ -1,5 +1,6 @@
 package com.hoang.wastenot.fragments
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.view.View
@@ -32,25 +33,26 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
         val myArgument = arguments?.get("RecipeId")
         viewModel.getRecipeUrl(myArgument as Int)
 
+
+
         binding.webView.apply {
+            if (Build.VERSION.SDK_INT >= 19) {
+                this.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+            } else {
+                this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            }
             this.settings.loadsImagesAutomatically = true
             this.settings.javaScriptEnabled = true
-            binding.webView.scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
-            binding.webView.webViewClient = WebViewClient()
+            this.scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
+            this.webViewClient = WebViewClient()
             viewModel.recipeUrl.observe(viewLifecycleOwner) {
                 it.sourceUrl?.let { it1 -> binding.webView.loadUrl(it1) }
             }
             handler.postDelayed({
                 binding.progressBar.visibility = View.GONE
-                binding.cvWebview.visibility = View.VISIBLE        }, 3000)
+                binding.cvWebview.visibility = View.VISIBLE
+            }, 2000)
         }
-
-
-
-
-
-
-
 
 
 //        Toast.makeText(context, "${myArgument}", Toast.LENGTH_SHORT).show()
