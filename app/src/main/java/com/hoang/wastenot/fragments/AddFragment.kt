@@ -48,6 +48,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
         }
 
+
         binding.btnGoToCategories.setOnClickListener {
             findNavController().navigate(R.id.action_addFragment_to_categoryFragment)
         }
