@@ -51,6 +51,11 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             findNavController().navigate(R.id.action_addFragment_to_categoryFragment)
         }
 
+        val bundle = this.arguments
+        bundle?.getString("Category").apply {
+            binding.tvCategorySelected.text = this ?: "select a category"
+        }
+
         setOnDatePickerClicked(view)
 
     }
