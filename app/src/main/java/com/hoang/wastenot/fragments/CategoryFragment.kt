@@ -3,6 +3,7 @@ package com.hoang.wastenot.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hoang.wastenot.R
@@ -29,7 +30,8 @@ class CategoryFragment : Fragment(R.layout.fragment_categories) {
                 onItemClicked = {
                     val bundle = Bundle()
                     bundle.putString("Category", it)
-                    findNavController().navigate(R.id.addFragment, bundle)
+//                    findNavController().navigate(R.id.addFragment, bundle)
+                    findNavController().navigateUp()
                 }
             }
         }

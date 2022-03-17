@@ -29,6 +29,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
     private val TAG = "AddFragment"
     private var picUrl: String? = null
     private var expDate: Date? = null
+    private var category: String? = null
     private val launchCameraIntentLauncher =
         registerForActivityResult(ActivityResultContracts.OpenDocument()) { fileUri ->
             if (fileUri != null) {
@@ -56,6 +57,15 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             binding.tvCategorySelected.text = this ?: "select a category"
         }
 
+
+        binding.btnScan.setOnClickListener {
+            Navigation.findNavController(view)
+                .navigate(R.id.action_addFragment_to_barcodeScannerFragment)
+
+        }
+
+        setOnUploadPictureBtnClicked()
+        setOnSaveButtonClicked()
         setOnDatePickerClicked(view)
 
     }
@@ -74,16 +84,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                     expDate = Date(it)
 
                 }
-
-
-            binding.btnScan.setOnClickListener {
-                Navigation.findNavController(view)
-                    .navigate(R.id.action_addFragment_to_barcodeScannerFragment)
-
-            }
-
-            setOnUploadPictureBtnClicked()
-            setOnSaveButtonClicked()
         }
     }
 
@@ -127,32 +127,25 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
     private fun setOnSaveButtonClicked() {
         binding.btnSaveFood.setOnClickListener {
+
             if (picUrl == null) {
-                Toast.makeText(
-                    activity,
-                    "You haven't selected a picture yet",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
+                Toast.makeText(activity, "You haven't selected a picture yet", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             } else if (expDate == null) {
-                Toast.makeText(
-                    activity,
-                    "You haven't selected an expiration date",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
+                Toast.makeText(activity, "You haven't selected an expiration date", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             val currentUser = userRepository.getCurrentUser() ?: return@setOnClickListener
             val foodName = binding.etFoodName.text.toString()
+            category = binding.tvCategorySelected.text.toString()
 
             val food = Food(
                 "",
                 foodName,
                 Timestamp(expDate!!),
                 picUrl,
+                category!!,
                 currentUser.email
             )
 
