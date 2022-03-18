@@ -1,4 +1,4 @@
-package com.hoang.wastenot
+package com.hoang.wastenot.fragments
 
 
 import android.app.NotificationChannel
@@ -11,9 +11,12 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.hoang.wastenot.R
 
-private const val CHANNEL_ID = "EXPIRY"
+internal const val CHANNEL_ID = "EXPIRY"
 private const val notificationId = 100
+private const val titleText = "Your ingredient is expiring soon"
+private const val messageText = "Check suggested recipes"
 
 
 class Notifications : BroadcastReceiver() {
@@ -26,8 +29,8 @@ class Notifications : BroadcastReceiver() {
 
         val builder = NotificationCompat.Builder(context!!, "Expiry")
             .setSmallIcon(R.drawable.bell)
-            .setContentTitle("Your ingredient is expiring soon!")
-            .setContentText("Check suggested recipes")
+            .setContentTitle(titleText)
+            .setContentText(messageText)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
@@ -41,21 +44,14 @@ class Notifications : BroadcastReceiver() {
 
     private fun createNotificationChannel(context: Context) {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Expiry Notification"
-            val descriptionText = "Receive reminders for expiring goods"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                description = descriptionText
-            }
-            (context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(channel)
 
-        }
+    }
+
     }
 
 
 
-    }
+
 
 
 

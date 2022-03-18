@@ -18,7 +18,7 @@
         android:usesCleartextTraffic="true"
         >
         android:theme="@style/Theme.WasteNot">
-        <receiver android:name=".Notifications"
+        <receiver android:name=".fragments.Notifications"
             android:enabled="true" />
         <activity
             android:name=".MainActivity"

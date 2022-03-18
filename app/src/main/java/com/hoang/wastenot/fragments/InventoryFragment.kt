@@ -1,5 +1,11 @@
 package com.hoang.wastenot.fragments
 
+import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -30,6 +36,9 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
     private lateinit var binding: FragmentInventoryBinding
 
     private val userRepository: UserRepository by inject()
+
+    private lateinit var alarmManager: AlarmManager
+    private lateinit var alarmIntent: PendingIntent
 
     private val foodsInventoryAdapter: FoodInventoryAdapter
         get() = binding.rvFoodsInventory.adapter as FoodInventoryAdapter
@@ -76,10 +85,8 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
 
     private fun setInitialisation() {
         binding.rvFoodsInventory.apply {
-
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = FoodInventoryAdapter().apply {
-
                 onItemClicked = {
                     val bundle = Bundle()
                     bundle.putParcelable("Food", it)
@@ -101,13 +108,16 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
                         .addOnFailureListener { e -> Log.w("x", "Error deleting document", e) }
                 }
 
-
-
             }
         }
+
+        firstCheckOfUser()
+
+        setOnAddBtnClicked(view)
+
+        setOnLogoutBtnClicked()
+
     }
-
-
 
     private fun setOnAddBtnClicked(view: View) {
         binding.btnAdd.setOnClickListener {
@@ -125,6 +135,10 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
             Navigation.findNavController(view)
                 .navigate(R.id.action_inventoryFragment_to_addFragment)
         }
+        setAlarm()
+
+        setReminderNotification()
+
     }
 
     private fun setClickable(clicked: Boolean) {
@@ -195,4 +209,36 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
             }
         }
     }
+
+    private fun setReminderNotification() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Expiry Notification"
+            val descriptionText = "Receive reminders for expiring goods"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            (context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(channel)
+
+        }
+    }
+
+    private fun setAlarm() {
+       alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent (context, Notifications::class.java)
+
+        alarmManager.set(
+            AlarmManager.ELAPSED_REALTIME,
+            86400000,
+            alarmIntent,
+
+
+        )
+
+
+    }
+
+
+
+
 }
