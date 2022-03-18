@@ -3,6 +3,7 @@ package com.hoang.wastenot.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,12 +31,8 @@ class CategoryFragment : Fragment(R.layout.fragment_categories) {
                 onItemClicked = {
                     val bundle = Bundle()
                     bundle.putString("Category", it)
-                    findNavController().navigate(R.id.addFragment, bundle)
-//                    val newGraph = findNavController().graph
-//                    newGraph.remove(newGraph.findNode(R.id.categoryFragment))
-//                    findNavController().setGraph(., bundle)
-//
-//                    findNavController().navigateUp()
+                    setFragmentResult("Category", bundle)
+                    findNavController().popBackStack()
                 }
             }
         }
