@@ -14,6 +14,7 @@ import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
@@ -22,6 +23,7 @@ import com.google.mlkit.vision.common.InputImage
 import com.hoang.wastenot.R
 import com.hoang.wastenot.databinding.FragmentBarcodeScannerBinding
 import com.hoang.wastenot.repositories.BarcodeRepository
+import com.hoang.wastenot.viewmodels.BarcodeSharedViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,9 +36,15 @@ import java.util.concurrent.Executors
 class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner), KoinComponent {
     private lateinit var binding: FragmentBarcodeScannerBinding
     private lateinit var cameraExecutor: ExecutorService
+
+    private val viewModel: BarcodeSharedViewModel by activityViewModels()
+
     private lateinit var test: String
 
-    val repository : BarcodeRepository by inject()
+    val repository: BarcodeRepository by inject()
+
+    var code: String? = null
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,6 +57,11 @@ class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner), Koin
             activity?.requestPermissions(REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         }
 
+        viewModel.showBottomSheetDialong.observe(viewLifecycleOwner){
+            if (it == true) {
+                displayFragment()
+            }
+        }
         cameraExecutor = Executors.newSingleThreadExecutor()
     }
 
@@ -61,14 +74,18 @@ class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner), Koin
             if (allPermissionsGranted()) {
                 startCamera()
             } else {
-                Toast.makeText(requireContext(), "Permissions not granted by the user.", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    requireContext(),
+                    "Permissions not granted by the user.",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
         }
     }
 
 
-    private fun startCamera() {
+    fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
         val options = BarcodeScannerOptions.Builder()
@@ -121,7 +138,7 @@ class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner), Koin
     }
 
     @SuppressLint("UnsafeOptInUsageError")
-    private fun processImageProxy(
+    fun processImageProxy(
         barcodeScanner: BarcodeScanner,
         imageProxy: ImageProxy
     ) {
@@ -132,11 +149,10 @@ class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner), Koin
             barcodeScanner.process(image)
                 .addOnSuccessListener { barcodes ->
                     barcodes.forEach { barcode ->
-                        val rawValue = barcode.rawValue
-
-                        getInfo(barcode.rawValue)
-
-                        val valueType = barcode.valueType
+                        if (code == null) {
+                            code = barcode.rawValue
+                            viewModel.getInfo(barcode.rawValue)
+                        }
                     }
                 }
                 .addOnFailureListener {
@@ -147,18 +163,21 @@ class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner), Koin
                     // images when finished using them. Otherwise, new images may not be received or the camera
                     // may stall.
                     imageProxy.close()
-
                 }
         }
+    }
+
+    fun displayFragment() {
+        val bottomSheetAddFragment = BottomSheetAddFragment()
+        bottomSheetAddFragment.show(parentFragmentManager, "BottomSheetDialog")
     }
 
     private fun getInfo(barcode: String?) {
         CoroutineScope(Dispatchers.IO).launch {
             val barcodeResponse = repository.getBarcodeResponse(barcode)
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 if (barcodeResponse != null) {
-                    test = barcodeResponse.product?.brands.toString()
-                    binding.tvScannedData.text = test
+                    displayFragment()
                 }
             }
         }
