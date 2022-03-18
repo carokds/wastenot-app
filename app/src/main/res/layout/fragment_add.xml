@@ -52,29 +52,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_add_exp_date" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_go_to_categories"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="categories"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_add_food_picture" />
+
+    <TextView
+        android:id="@+id/tv_category_selected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/btn_go_to_categories"
+        app:layout_constraintStart_toEndOf="@+id/btn_go_to_categories"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_go_to_categories"/>
+
     <Button
         android:id="@+id/btn_save_food"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_add_food_picture" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_go_to_categories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="categories"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_save_food" />
-
-    <TextView
-        android:id="@+id/tv_category_selected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_go_to_categories" />
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_scan"
