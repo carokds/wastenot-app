@@ -2,6 +2,8 @@ package com.hoang.wastenot.fragments
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -42,6 +44,12 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
         viewModel.recipes.observe(viewLifecycleOwner) {
             (binding.recyclerView.adapter as RecipeAdapter).dataSet = it.results
+        }
+
+        val countries: Array<out String> = resources.getStringArray(R.array.diet_array)
+        val textView = (binding.autocompleteDiet as AutoCompleteTextView)
+        ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, countries).also { adapter ->
+            textView.setAdapter(adapter)
         }
 
 

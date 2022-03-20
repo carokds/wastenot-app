@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">WasteNot</string>
+    <string-array name="diet_array">
+        <item>Gluten Free</item>
+        <item>Ketogenic</item>
+        <item>Vegetarian</item>
+        <item>Vegan</item>
+        <item>Pescetarian</item>
+        <item>Low FODMAP</item>
+    </string-array>
 </resources>
