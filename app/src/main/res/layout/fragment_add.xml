@@ -32,13 +32,6 @@
         android:hint="Food"
         app:layout_constraintTop_toBottomOf="@+id/tv_title_add" />
 
-    <EditText
-        android:id="@+id/et_food_exp_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Expiration date"
-        app:layout_constraintTop_toBottomOf="@+id/et_food_name" />
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_add_exp_date"
         style="?attr/borderlessButtonStyle"
@@ -47,7 +40,7 @@
         android:text="Add Exp date"
         android:textColor="@color/purple_500"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_food_exp_date" />
+        app:layout_constraintTop_toBottomOf="@+id/et_food_name" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_add_food_picture"
@@ -59,22 +52,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_add_exp_date" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_go_to_categories"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="categories"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_add_food_picture" />
+
+    <TextView
+        android:id="@+id/tv_category_selected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/btn_go_to_categories"
+        app:layout_constraintStart_toEndOf="@+id/btn_go_to_categories"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_go_to_categories"/>
+
     <Button
         android:id="@+id/btn_save_food"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_add_food_picture" />
-
+        app:layout_constraintTop_toBottomOf="@+id/btn_go_to_categories" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_scan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp"
-        app:srcCompat="@drawable/ic_scanner"/>
+        app:srcCompat="@drawable/ic_scanner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
