@@ -46,11 +46,13 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
             (binding.recyclerView.adapter as RecipeAdapter).dataSet = it.results
         }
 
-        val countries: Array<out String> = resources.getStringArray(R.array.diet_array)
+        val diets: Array<out String> = resources.getStringArray(R.array.diet_array)
         val textView = (binding.autocompleteDiet as AutoCompleteTextView)
-        ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, countries).also { adapter ->
+        ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, diets).also { adapter ->
             textView.setAdapter(adapter)
         }
+
+       textView.setText(diets[0],false)
 
 
 //        binding.

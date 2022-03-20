@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">WasteNot</string>
     <string-array name="diet_array">
+        <item>None</item>
         <item>Gluten Free</item>
         <item>Ketogenic</item>
         <item>Vegetarian</item>
