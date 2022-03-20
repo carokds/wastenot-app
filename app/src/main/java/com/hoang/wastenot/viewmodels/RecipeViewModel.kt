@@ -11,24 +11,24 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class RecipeViewModel: ViewModel() {
+class RecipeViewModel : ViewModel() {
 
     private val recipeRepository = RecipeRepository()
     val recipes = MutableLiveData<RecipeRootResponse>()
     val recipeUrl = MutableLiveData<RecipeDetailResponse>()
 
-    fun getRecipes(){
-        viewModelScope.launch(Dispatchers.Default){
+    fun getRecipes() {
+        viewModelScope.launch(Dispatchers.Default) {
             val recipesList = recipeRepository.getRecipes()
             recipes.postValue(recipesList!!)
 
         }
     }
 
-    fun getRecipeUrl(recipeId:Int){
+    fun getRecipeUrl(recipeId: Int) {
         viewModelScope.launch(Dispatchers.Default) {
             val url = recipeRepository.getRecipeUrl(recipeId)
-suspend           { recipeUrl.postValue(url!!)}
+            recipeUrl.postValue(url!!)
         }
     }
 }
