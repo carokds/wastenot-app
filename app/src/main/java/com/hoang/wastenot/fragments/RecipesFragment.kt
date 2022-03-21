@@ -62,8 +62,10 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
         textView?.doOnTextChanged { inputText, _, _, _ ->
             Toast.makeText(context,inputText, Toast.LENGTH_SHORT).show()
-            when (inputText) {
-                diets[1] ->  viewModel.getRecipes("gluten free")
+            binding.menu.error = null
+
+            when (inputText.toString()) {
+                diets[1] -> viewModel.getRecipes("gluten free")
                 diets[2] -> viewModel.getRecipes("ketogenic")
                 diets[3] -> viewModel.getRecipes("vegetarian")
                 diets[4] -> viewModel.getRecipes("vegan")
@@ -71,7 +73,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
                 diets[6] -> viewModel.getRecipes("low fodmap")
                 diets[0] -> viewModel.getRecipes(" ")
                 else -> {
-                    binding.menu.error = null
+                    binding.menu.error = "error"
                 }
 
 
