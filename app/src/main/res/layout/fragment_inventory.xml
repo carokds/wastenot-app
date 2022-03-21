@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:text="Hello user!"
+        android:text="@string/hello_user"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
         android:id="@+id/tv_title_inventory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="What are we cooking today?"
+        android:text="@string/what_are_we_cooking_today"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/tv_hello"
         app:layout_constraintTop_toBottomOf="@id/tv_hello" />
@@ -50,16 +50,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:tint="@color/white" />
-
-    <!--    <ImageView-->
-    <!--        android:id="@+id/iv_temporary"-->
-    <!--        android:layout_width="300dp"-->
-    <!--        android:layout_height="300dp"-->
-    <!--        android:src="@drawable/test_burguer"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/tv_title_inventory" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_foods_inventory"
