@@ -4,12 +4,17 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
@@ -18,9 +23,12 @@ import com.google.firebase.storage.FirebaseStorage
 import com.hoang.wastenot.R
 import com.hoang.wastenot.databinding.FragmentAddBinding
 import com.hoang.wastenot.models.Food
+import com.hoang.wastenot.repositories.CSVReader
 import com.hoang.wastenot.repositories.UserRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import java.io.IOException
+import java.time.Instant.now
 import java.util.*
 
 class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
@@ -49,41 +57,46 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
         }
 
-
-        binding.btnGoToCategories.setOnClickListener {
-            findNavController().navigate(R.id.action_addFragment_to_categoryFragment)
-        }
-
-        val bundle = this.arguments
-        bundle?.getString("Category").apply {
-            binding.tvCategorySelected.text = this ?: getString(R.string.select_a_category)
-        }
-
-
         binding.btnScan.setOnClickListener {
             Navigation.findNavController(view)
                 .navigate(R.id.action_addFragment_to_barcodeScannerFragment)
         }
 
         setOnUploadPictureBtnClicked()
+        readIngredients()
         setOnSaveButtonClicked()
         setOnDatePickerClicked(view)
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setFragmentResultListener(getString(R.string.category)) { category, bundle ->
-            binding.tvCategorySelected.text = bundle.getString(getString(R.string.category))
-                ?: getString(R.string.select_a_category)
+    private fun readIngredients() {
+        var rows = mutableListOf<String>()
+        val csvReader = CSVReader(requireContext(), "top_1k_ingredients")
+        try {
+            rows = csvReader.readCSV()
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
+        rows.size
+
+        val textView = (binding.autocompleteCategory) as AutoCompleteTextView
+
+        val categories: MutableList<String> = rows
+
+        ArrayAdapter(requireContext(), R.layout.item_category, categories).also { adapter ->
+            textView.setAdapter(adapter)
+        }
+
     }
 
     private fun setOnDatePickerClicked(view: View) {
+        val constraintsBuilder =
+            CalendarConstraints.Builder()
+                .setValidator(DateValidatorPointForward.now())
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
+                .setCalendarConstraints(constraintsBuilder.build())
                 .build()
 
         binding.btnAddExpDate.setOnClickListener {
@@ -152,7 +165,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
             val currentUser = userRepository.getCurrentUser() ?: return@setOnClickListener
             val foodName = binding.etFoodName.text.toString()
-            category = binding.tvCategorySelected.text.toString()
+            category = binding.autocompleteCategory.text.toString()
             val foodRef = Firebase.firestore.collection("foods").document()
 
             val food = Food(
