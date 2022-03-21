@@ -25,7 +25,7 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentRecipeDetailBinding.bind(view)
-        binding.progressBar.visibility = View.VISIBLE
+        binding.loadingAnimation.visibility = View.VISIBLE
         binding.cvWebview.visibility = View.GONE
         val handler = Handler(Looper.getMainLooper())
 
@@ -49,7 +49,7 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
                 it.sourceUrl?.let { it1 -> binding.webView.loadUrl(it1) }
             }
             handler.postDelayed({
-                binding.progressBar.visibility = View.GONE
+                binding.loadingAnimation.visibility = View.GONE
                 binding.cvWebview.visibility = View.VISIBLE
             }, 2000)
         }
