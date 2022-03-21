@@ -51,6 +51,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:tint="@color/white" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_add_by_scan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/ic_scanner"
+        app:layout_constraintBottom_toTopOf="@+id/btn_add"
+        app:layout_constraintStart_toStartOf="@id/btn_add"
+        app:tint="@color/white"
+        android:visibility="invisible"
+        tools:visibility="visible"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_add_manually"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/ic_text_fields"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/btn_add_by_scan"
+        app:layout_constraintStart_toStartOf="@id/btn_add_by_scan"
+        app:tint="@color/white"
+        tools:visibility="visible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_foods_inventory"
         android:layout_width="match_parent"
