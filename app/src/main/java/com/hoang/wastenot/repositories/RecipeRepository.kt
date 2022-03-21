@@ -13,14 +13,14 @@ class RecipeRepository {
 
 
 
-    suspend fun getRecipes(diet: String): RecipeRootResponse? {
+    suspend fun getRecipes(ingredient: String, diet: String): RecipeRootResponse? {
         val response =
             recipeService.getRecipes(
-                "tomato",
+                ingredient,
                 10,
                 "min-missing-ingredients",
                 diet,
-                "34d327a0420a45d4904a5ee6d1de0ce7"
+                "35ffd0936a0b48209553394c38c0b8bd"
             ).execute()
         if (response.isSuccessful) {
             return response.body()

@@ -20,9 +20,9 @@ class RecipeViewModel : ViewModel() {
 
     val recipeUrl = MutableLiveData<RecipeDetailResponse>()
 
-    fun getRecipes(diet:String) {
+    fun getRecipes(ingredient: String, diet:String) {
         viewModelScope.launch(Dispatchers.Default) {
-            val recipesList = recipeRepository.getRecipes(diet)
+            val recipesList = recipeRepository.getRecipes(ingredient, diet)
             recipes.postValue(recipesList!!)
 
         }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hoang.wastenot.R
 import com.hoang.wastenot.adapters.RecipeAdapter
 import com.hoang.wastenot.databinding.FragmentRecipesBinding
+import com.hoang.wastenot.models.Food
 import com.hoang.wastenot.viewmodels.RecipeViewModel
 
 
@@ -26,7 +27,21 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
         binding = FragmentRecipesBinding.bind(view)
         var noDiet = " "
-        viewModel.getRecipes(noDiet)
+        var ingredient = ""
+
+      this.arguments?.getParcelable<Food>("Food").apply{
+            if (this != null) {
+                viewModel.getRecipes("${this.category}", noDiet)
+            }else{
+                viewModel.getRecipes("chicken", noDiet)
+
+            }
+
+        }
+
+
+
+
 
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(context)
@@ -65,13 +80,13 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
             binding.menu.error = null
 
             when (inputText.toString()) {
-                diets[1] -> viewModel.getRecipes("gluten free")
-                diets[2] -> viewModel.getRecipes("ketogenic")
-                diets[3] -> viewModel.getRecipes("vegetarian")
-                diets[4] -> viewModel.getRecipes("vegan")
-                diets[5] -> viewModel.getRecipes("pescetarian")
-                diets[6] -> viewModel.getRecipes("low fodmap")
-                diets[0] -> viewModel.getRecipes(" ")
+                diets[1] -> viewModel.getRecipes(ingredient,"gluten free")
+                diets[2] -> viewModel.getRecipes(ingredient, "ketogenic")
+                diets[3] -> viewModel.getRecipes(ingredient, "vegetarian")
+                diets[4] -> viewModel.getRecipes(ingredient,"vegan")
+                diets[5] -> viewModel.getRecipes(ingredient,"pescetarian")
+                diets[6] -> viewModel.getRecipes(ingredient,"low fodmap")
+                diets[0] -> viewModel.getRecipes(ingredient," ")
                 else -> {
                     binding.menu.error = "error"
                 }
