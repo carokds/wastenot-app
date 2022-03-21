@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -23,7 +25,8 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentRecipesBinding.bind(view)
-        viewModel.getRecipes()
+        var noDiet = " "
+        viewModel.getRecipes(noDiet)
 
         with(binding.recyclerView) {
             layoutManager = LinearLayoutManager(context)
@@ -53,7 +56,28 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         }
 
        textView.setText(diets[0],false)
+        // Get input text
+        val inputText = textView?.text.toString()
 
+
+        textView?.doOnTextChanged { inputText, _, _, _ ->
+            Toast.makeText(context,inputText, Toast.LENGTH_SHORT).show()
+            when (inputText) {
+                diets[1] ->  viewModel.getRecipes("gluten free")
+                diets[2] -> viewModel.getRecipes("ketogenic")
+                diets[3] -> viewModel.getRecipes("vegetarian")
+                diets[4] -> viewModel.getRecipes("vegan")
+                diets[5] -> viewModel.getRecipes("pescetarian")
+                diets[6] -> viewModel.getRecipes("low fodmap")
+                diets[0] -> viewModel.getRecipes(" ")
+                else -> {
+                    binding.menu.error = null
+                }
+
+
+            }
+
+     }
 
 //        binding.
 //            .setOnClickListener {
@@ -65,4 +89,5 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         }
 
     }
+
 }

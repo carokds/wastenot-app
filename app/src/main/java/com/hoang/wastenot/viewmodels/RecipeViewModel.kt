@@ -1,5 +1,6 @@
 package com.hoang.wastenot.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,11 +16,13 @@ class RecipeViewModel : ViewModel() {
 
     private val recipeRepository = RecipeRepository()
     val recipes = MutableLiveData<RecipeRootResponse>()
+//    val recipes : LiveData<RecipeRootResponse> = recipeRepository.recipes.asLiveData()
+
     val recipeUrl = MutableLiveData<RecipeDetailResponse>()
 
-    fun getRecipes() {
+    fun getRecipes(diet:String) {
         viewModelScope.launch(Dispatchers.Default) {
-            val recipesList = recipeRepository.getRecipes()
+            val recipesList = recipeRepository.getRecipes(diet)
             recipes.postValue(recipesList!!)
 
         }
