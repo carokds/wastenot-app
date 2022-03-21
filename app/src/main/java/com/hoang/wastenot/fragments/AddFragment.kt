@@ -1,5 +1,9 @@
 package com.hoang.wastenot.fragments
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +20,8 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -32,6 +38,11 @@ import java.time.Instant.now
 import java.util.*
 
 class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
+
+    private lateinit var alarmManager: AlarmManager
+    private lateinit var alarmIntent: PendingIntent
+    private lateinit var picker: MaterialTimePicker
+    private lateinit var calendar: Calendar
 
     private lateinit var binding: FragmentAddBinding
     private val userRepository: UserRepository by inject()
@@ -191,6 +202,41 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                 }
 
         }
+
+        setTime()
+
+    }
+
+
+    private fun setTime() {
+        picker = MaterialTimePicker.Builder()
+            .setTimeFormat(TimeFormat.CLOCK_24H)
+            .setHour(12)
+            .setMinute(0)
+            .setTitleText("Select Time")
+            .build()
+        picker.show(parentFragmentManager, "yeet")
+        picker.addOnPositiveButtonClickListener {
+            calendar = Calendar.getInstance()
+            calendar[Calendar.SECOND] += 15
+        }
+        setAlarm()
+    }
+
+
+    private fun setAlarm() {
+        alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, Notifications::class.java)
+        alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
+
+
+        alarmManager.set(
+            AlarmManager.ELAPSED_REALTIME,
+            calendar.timeInMillis,
+            alarmIntent,
+
+
+            )
     }
 
 }

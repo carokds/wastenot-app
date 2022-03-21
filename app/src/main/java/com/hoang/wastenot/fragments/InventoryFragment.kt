@@ -1,12 +1,7 @@
 package com.hoang.wastenot.fragments
 
 import android.app.AlarmManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hoang.wastenot.R
@@ -26,15 +22,13 @@ import com.hoang.wastenot.models.User
 import com.hoang.wastenot.repositories.UserRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import java.util.*
 
 class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
 
     private lateinit var binding: FragmentInventoryBinding
 
     private val userRepository: UserRepository by inject()
-
-    private lateinit var alarmManager: AlarmManager
-    private lateinit var alarmIntent: PendingIntent
 
     private val foodsInventoryAdapter: FoodInventoryAdapter
         get() = binding.rvFoodsInventory.adapter as FoodInventoryAdapter
@@ -131,9 +125,6 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
             Navigation.findNavController(view)
                 .navigate(R.id.action_inventoryFragment_to_addFragment)
         }
-        setAlarm()
-
-        setReminderNotification()
 
     }
 
@@ -206,31 +197,4 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
         }
     }
 
-    private fun setReminderNotification() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Expiry Notification"
-            val descriptionText = "Receive reminders for expiring goods"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                description = descriptionText
-            }
-            (context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(
-                channel
-            )
-
-        }
-    }
-
-    private fun setAlarm() {
-        alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, Notifications::class.java)
-
-        alarmManager.set(
-            AlarmManager.ELAPSED_REALTIME,
-            86400000,
-            alarmIntent,
-
-
-            )
-    }
 }
