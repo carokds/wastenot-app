@@ -31,7 +31,8 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
       this.arguments?.getParcelable<Food>("Food").apply{
             if (this != null) {
-                viewModel.getRecipes("${this.category}", noDiet)
+                viewModel.getRecipes(this.category, noDiet)
+                binding.tvTitleRecipes.text = "Recipes with " + this.category
             }else{
                 viewModel.getRecipes("chicken", noDiet)
 
@@ -79,21 +80,22 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
             Toast.makeText(context,inputText, Toast.LENGTH_SHORT).show()
             binding.menu.error = null
 
-            when (inputText.toString()) {
-                diets[1] -> viewModel.getRecipes(ingredient,"gluten free")
-                diets[2] -> viewModel.getRecipes(ingredient, "ketogenic")
-                diets[3] -> viewModel.getRecipes(ingredient, "vegetarian")
-                diets[4] -> viewModel.getRecipes(ingredient,"vegan")
-                diets[5] -> viewModel.getRecipes(ingredient,"pescetarian")
-                diets[6] -> viewModel.getRecipes(ingredient,"low fodmap")
-                diets[0] -> viewModel.getRecipes(ingredient," ")
-                else -> {
-                    binding.menu.error = "error"
+            this.arguments?.getParcelable<Food>("Food").apply {
+                when (inputText.toString()) {
+                    diets[1] -> this?.let { viewModel.getRecipes(it.category, "gluten free") }
+                    diets[2] -> this?.let { viewModel.getRecipes(it.category, "ketogenic") }
+                    diets[3] -> this?.let { viewModel.getRecipes(it.category, "vegetarian") }
+                    diets[4] -> this?.let { viewModel.getRecipes(it.category, "vegan") }
+                    diets[5] -> this?.let { viewModel.getRecipes(it.category, "pescetarian") }
+                    diets[6] -> this?.let { viewModel.getRecipes(it.category, "low fodmap") }
+                    diets[0] -> this?.let { viewModel.getRecipes(it.category, " ") }
+                    else -> {
+                        binding.menu.error = "error"
+                    }
+
+
                 }
-
-
             }
-
      }
 
 //        binding.
