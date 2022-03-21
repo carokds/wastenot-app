@@ -21,8 +21,7 @@
         android:id="@+id/tv_title_recipes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RECIPES"
-        android:textSize="35dp"
+        android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +31,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="dietary options"
+        android:hint="@string/dietary_requirements"
         app:errorEnabled="true">
 
         <AutoCompleteTextView

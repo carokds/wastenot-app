@@ -32,6 +32,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
       this.arguments?.getParcelable<Food>("Food").apply{
             if (this != null) {
                 viewModel.getRecipes(this.category, noDiet)
+                binding.tvTitleRecipes.text = "Recipes with " + this.category
             }else{
                 viewModel.getRecipes("chicken", noDiet)
 

@@ -10,6 +10,7 @@
     <string name="recipes">recipes</string>
     <string name="delete">delete</string>
     <string name="category">"Category"</string>
+    <string name="dietary_requirements">Dietary requirements</string>
     <string-array name="diet_array">
         <item>None</item>
         <item>Gluten Free</item>
