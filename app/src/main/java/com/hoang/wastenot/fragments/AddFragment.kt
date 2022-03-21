@@ -56,7 +56,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
         val bundle = this.arguments
         bundle?.getString("Category").apply {
-            binding.tvCategorySelected.text = this ?: "select a category"
+            binding.tvCategorySelected.text = this ?: getString(R.string.select_a_category)
         }
 
 
@@ -74,8 +74,9 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setFragmentResultListener("Category") { category, bundle ->
-            binding.tvCategorySelected.text = bundle.getString("Category") ?: "select a category"
+        setFragmentResultListener(getString(R.string.category)) { category, bundle ->
+            binding.tvCategorySelected.text = bundle.getString(getString(R.string.category))
+                ?: getString(R.string.select_a_category)
         }
     }
 

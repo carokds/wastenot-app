@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">WasteNot</string>
+    <string name="select_a_category">Select a category</string>
+    <string name="upload_picture">Upload Picture</string>
+    <string name="categories">categories</string>
+    <string name="save">Save</string>
+    <string name="scan_product_barcode">Scan product barcode</string>
+    <string name="hello_user">Hello user!</string>
+    <string name="what_are_we_cooking_today">What are we cooking today?</string>
+    <string name="recipes">recipes</string>
+    <string name="delete">delete</string>
+    <string name="category">"Category"</string>
     <string-array name="diet_array">
         <item>None</item>
         <item>Gluten Free</item>

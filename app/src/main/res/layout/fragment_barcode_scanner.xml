@@ -13,7 +13,7 @@
 
     <TextView
         android:id="@+id/tvScannerText"
-        android:text="Scan product barcode"
+        android:text="@string/scan_product_barcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
