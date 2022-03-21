@@ -69,6 +69,8 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
     }
 
+
+
     private fun readIngredients() {
         var rows = mutableListOf<String>()
         val csvReader = CSVReader(requireContext(), "top_1k_ingredients")
@@ -187,6 +189,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                 .addOnFailureListener { e ->
                     Log.w("Failure Add Message", "Error adding document", e)
                 }
+
         }
     }
 

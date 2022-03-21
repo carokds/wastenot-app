@@ -16,13 +16,12 @@ class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsVi
 
     var onItemClicked: (Food) -> Unit = { }
     var onDeleteBtnClicked: (Food) -> Unit = { }
-    var onRecipesBtnClicked: (Food) -> Unit = { }
 
     private var dataSet = mutableListOf<Food>()
 
     fun setData(dataParam: List<Food>) {
         dataSet.clear()
-        dataSet.addAll(dataParam)
+        dataSet.addAll(dataParam.sortedBy { it.expirationDate })
         notifyDataSetChanged()
     }
 

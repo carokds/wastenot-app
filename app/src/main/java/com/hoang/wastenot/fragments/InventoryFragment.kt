@@ -1,10 +1,12 @@
 package com.hoang.wastenot.fragments
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -20,6 +22,8 @@ import com.hoang.wastenot.models.User
 import com.hoang.wastenot.repositories.UserRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import java.time.Instant.now
+import java.util.*
 
 class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
 
@@ -72,8 +76,10 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
 
     private fun setInitialisation() {
         binding.rvFoodsInventory.apply {
+
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = FoodInventoryAdapter().apply {
+
                 onItemClicked = {
                     val bundle = Bundle()
                     bundle.putParcelable("Food", it)
@@ -95,9 +101,13 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
                         .addOnFailureListener { e -> Log.w("x", "Error deleting document", e) }
                 }
 
+
+
             }
         }
     }
+
+
 
     private fun setOnAddBtnClicked(view: View) {
         binding.btnAdd.setOnClickListener {
