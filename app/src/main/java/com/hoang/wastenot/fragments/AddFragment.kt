@@ -12,6 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
@@ -25,6 +28,7 @@ import com.hoang.wastenot.repositories.UserRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.io.IOException
+import java.time.Instant.now
 import java.util.*
 
 class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
@@ -79,17 +83,20 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
         val categories: MutableList<String> = rows
 
-        val myadapter = ArrayAdapter(requireContext(), R.layout.item_category, categories).also { adapter ->
+        ArrayAdapter(requireContext(), R.layout.item_category, categories).also { adapter ->
             textView.setAdapter(adapter)
         }
-
 
     }
 
     private fun setOnDatePickerClicked(view: View) {
+        val constraintsBuilder =
+            CalendarConstraints.Builder()
+                .setValidator(DateValidatorPointForward.now())
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Select date")
+                .setCalendarConstraints(constraintsBuilder.build())
                 .build()
 
         binding.btnAddExpDate.setOnClickListener {
