@@ -53,17 +53,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
         }
 
-
-        binding.btnGoToCategories.setOnClickListener {
-            findNavController().navigate(R.id.action_addFragment_to_categoryFragment)
-        }
-
-        val bundle = this.arguments
-        bundle?.getString("Category").apply {
-            binding.tvCategorySelected.text = this ?: getString(R.string.select_a_category)
-        }
-
-
         binding.btnScan.setOnClickListener {
             Navigation.findNavController(view)
                 .navigate(R.id.action_addFragment_to_barcodeScannerFragment)
@@ -74,16 +63,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         setOnSaveButtonClicked()
         setOnDatePickerClicked(view)
 
-
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setFragmentResultListener(getString(R.string.category)) { category, bundle ->
-            binding.tvCategorySelected.text = bundle.getString(getString(R.string.category))
-                ?: getString(R.string.select_a_category)
-        }
     }
 
     private fun readIngredients() {
@@ -100,9 +79,10 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
         val categories: MutableList<String> = rows
 
-        ArrayAdapter(requireContext(), R.layout.item_category, categories).also { adapter ->
+        val myadapter = ArrayAdapter(requireContext(), R.layout.item_category, categories).also { adapter ->
             textView.setAdapter(adapter)
         }
+
 
     }
 
@@ -178,7 +158,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
             val currentUser = userRepository.getCurrentUser() ?: return@setOnClickListener
             val foodName = binding.etFoodName.text.toString()
-            category = binding.tvCategorySelected.text.toString()
+            category = binding.autocompleteCategory.text.toString()
             val foodRef = Firebase.firestore.collection("foods").document()
 
             val food = Food(
