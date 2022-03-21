@@ -40,7 +40,6 @@ class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsVi
         holder.foodName.text = currentData.name
 
         val expDate = "${currentData.expirationDate.toDate().date}-${currentData.expirationDate.toDate().month+1}-${currentData.expirationDate.toDate().year-100}"
-//        currentData.expirationDate.toDate().toString()
         holder.foodExpDate.text = expDate
         holder.itemView.setOnClickListener { onItemClicked(currentData) }
         holder.deleteBtn.setOnClickListener { onDeleteBtnClicked(currentData) }
@@ -55,7 +54,6 @@ class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsVi
         var foodName: TextView = view.findViewById(R.id.tv_food_name)
         var foodExpDate: TextView = view.findViewById(R.id.tv_exp_date)
         var deleteBtn: MaterialButton = view.findViewById(R.id.btn_delete)
-        var recipesBtn: MaterialButton = view.findViewById(R.id.btn_recipes)
 
     }
 }
