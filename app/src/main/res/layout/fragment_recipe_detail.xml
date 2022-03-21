@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/black"
+        />
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="10dp"
-    tools:context=".fragments.RecipeDetailFragment">
+    tools:context=".fragments.RecipeDetailFragment"
+    android:orientation="vertical">
+
 
     <ImageButton
         android:id="@+id/btn_home_recipedetailfragment"
@@ -13,44 +31,28 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/ic_home"/>
+        android:src="@drawable/ic_home"
+        android:layout_gravity="right"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        android:id="@+id/cv_webview"
+        >
 
     <WebView android:id="@+id/webView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_home_recipedetailfragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_margin="10dp"
+       />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/iv_temporary_detail"-->
-<!--        android:layout_width="100dp"-->
-<!--        android:layout_height="100dp"-->
-<!--        android:src="@drawable/test_cheeseburguer"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    </com.google.android.material.card.MaterialCardView>
 
-<!--    <TextView-->
-<!--        android:id="@+id/tv_title_recipe_detail"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="CHEESEBURGUER"-->
-<!--        android:textSize="25dp"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/btn_home_recipedetailfragment"-->
-<!--        app:layout_constraintStart_toEndOf="@id/iv_temporary_detail"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/tv_recipe_detal"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Here all the ingredients and instructions"-->
-<!--        android:textSize="15dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
+</LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,19 +8,21 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RecipeService {
-    @GET("findByIngredients?")
+    @GET("complexSearch?")
     fun getRecipes(
-        @Query("ingredients") ingredient: String,
+        @Query("includeIngredients") ingredient: String,
         @Query("number") number: Int,
+        @Query("sort") sort: String,
+        @Query("diet") diet: String,
         @Query("apiKey") API_KEY: String
-    ): Call<List<RecipeResponse>>
+    ): Call<RecipeRootResponse>
 
     @GET("{id}/information?")
     fun getRecipeUrl(
         @Path("id") id: Int,
         @Query("includeNutrition") includeNutrition: Boolean,
         @Query("apiKey") API_KEY: String,
-        ): Call<RecipeDetailResponse>
+    ): Call<RecipeDetailResponse>
 }
 
 object Retrofit {

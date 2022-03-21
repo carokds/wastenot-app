@@ -10,4 +10,13 @@
     <string name="recipes">recipes</string>
     <string name="delete">delete</string>
     <string name="category">"Category"</string>
+    <string-array name="diet_array">
+        <item>None</item>
+        <item>Gluten Free</item>
+        <item>Ketogenic</item>
+        <item>Vegetarian</item>
+        <item>Vegan</item>
+        <item>Pescetarian</item>
+        <item>Low FODMAP</item>
+    </string-array>
 </resources>
