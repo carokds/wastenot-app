@@ -15,8 +15,8 @@ import kotlinx.coroutines.launch
 class RecipeViewModel : ViewModel() {
 
     private val recipeRepository = RecipeRepository()
-    val recipes = MutableLiveData<RecipeRootResponse>()
-//    val recipes : LiveData<RecipeRootResponse> = recipeRepository.recipes.asLiveData()
+    val recipes: MutableLiveData<RecipeRootResponse> = MutableLiveData()
+    //    val recipes : LiveData<RecipeRootResponse> = recipeRepository.recipes.asLiveData()
 
     val recipeUrl = MutableLiveData<RecipeDetailResponse>()
 
