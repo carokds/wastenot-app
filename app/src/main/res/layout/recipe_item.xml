@@ -52,7 +52,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Aubergine Courgette Lasagne"
-                android:textColor="@color/white"
+                android:textColor="@color/pale_yellow"
                 />
 
 

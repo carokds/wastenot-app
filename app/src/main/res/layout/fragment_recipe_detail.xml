@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/green">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -32,7 +33,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/ic_home"
-        android:layout_gravity="right"/>
+        android:layout_gravity="right"
+        app:tint="@color/orange"
+        android:backgroundTint="@color/fui_transparent"/>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
