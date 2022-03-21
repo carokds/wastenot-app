@@ -4,6 +4,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -18,9 +20,11 @@ import com.google.firebase.storage.FirebaseStorage
 import com.hoang.wastenot.R
 import com.hoang.wastenot.databinding.FragmentAddBinding
 import com.hoang.wastenot.models.Food
+import com.hoang.wastenot.repositories.CSVReader
 import com.hoang.wastenot.repositories.UserRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import java.io.IOException
 import java.util.*
 
 class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
@@ -66,8 +70,10 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         }
 
         setOnUploadPictureBtnClicked()
+        readIngredients()
         setOnSaveButtonClicked()
         setOnDatePickerClicked(view)
+
 
     }
 
@@ -78,6 +84,26 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             binding.tvCategorySelected.text = bundle.getString(getString(R.string.category))
                 ?: getString(R.string.select_a_category)
         }
+    }
+
+    private fun readIngredients() {
+        var rows = mutableListOf<String>()
+        val csvReader = CSVReader(requireContext(), "top_1k_ingredients")
+        try {
+            rows = csvReader.readCSV()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        rows.size
+
+        val textView = (binding.autocompleteCategory) as AutoCompleteTextView
+
+        val categories: MutableList<String> = rows
+
+        ArrayAdapter(requireContext(), R.layout.item_category, categories).also { adapter ->
+            textView.setAdapter(adapter)
+        }
+
     }
 
     private fun setOnDatePickerClicked(view: View) {

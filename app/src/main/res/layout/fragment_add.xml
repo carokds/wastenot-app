@@ -65,9 +65,26 @@
         android:id="@+id/tv_category_selected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/btn_go_to_categories"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_go_to_categories"
         app:layout_constraintStart_toEndOf="@+id/btn_go_to_categories"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_go_to_categories"/>
+        app:layout_constraintTop_toTopOf="@+id/btn_go_to_categories" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_category"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/category"
+        app:layout_constraintTop_toBottomOf="@+id/btn_go_to_categories">
+
+        <AutoCompleteTextView
+            android:id="@+id/autocomplete_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/btn_save_food"
@@ -75,7 +92,7 @@
         android:layout_height="wrap_content"
         android:text="@string/save"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_go_to_categories" />
+        app:layout_constraintTop_toBottomOf="@+id/et_category" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_scan"
