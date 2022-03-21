@@ -12,12 +12,10 @@ import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hoang.wastenot.R
@@ -28,8 +26,6 @@ import com.hoang.wastenot.models.User
 import com.hoang.wastenot.repositories.UserRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import java.time.Instant.now
-import java.util.*
 
 class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
 
@@ -218,14 +214,16 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
             val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                 description = descriptionText
             }
-            (context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(channel)
+            (context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(
+                channel
+            )
 
         }
     }
 
     private fun setAlarm() {
-       alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent (context, Notifications::class.java)
+        alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, Notifications::class.java)
 
         alarmManager.set(
             AlarmManager.ELAPSED_REALTIME,
@@ -233,12 +231,6 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
             alarmIntent,
 
 
-        )
-
-
+            )
     }
-
-
-
-
 }
