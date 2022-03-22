@@ -11,8 +11,8 @@ import androidx.navigation.Navigation
 import com.hoang.wastenot.R
 import com.hoang.wastenot.databinding.FragmentRecipeDetailBinding
 import com.hoang.wastenot.viewmodels.RecipeViewModel
-import java.util.*
 import android.os.Handler;
+import android.view.WindowManager
 
 
 class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
@@ -62,5 +62,14 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
             Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
         }
 
+        setStatusBarAppearance()
+
+    }
+
+    private fun setStatusBarAppearance() {
+        val window = activity?.window
+        window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window?.statusBarColor = resources.getColor(R.color.green)
     }
 }

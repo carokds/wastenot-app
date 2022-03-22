@@ -30,39 +30,11 @@
         android:textSize="35sp" />
 
 
-<HorizontalScrollView
-    android:layout_width="match_parent"
-    android:fillViewport="true"
-    android:layout_height="100dp"
-android:layout_marginTop="10dp">
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <HorizontalScrollView
+        android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_gravity="left"
-        android:orientation="horizontal"
-       >
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-        <ImageButton
-            android:id="@+id/btn_diet_none"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/button_shape"
-            android:padding="5dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/diet_none"
-            app:tint="@color/grey_text"
-            android:layout_margin="10dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/none"
-            android:layout_gravity="center"
-            android:textColor="@color/grey_text"/>
-
+        android:layout_marginTop="10dp"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -268,12 +240,11 @@ android:layout_marginTop="10dp">
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp"
-        android:layout_marginTop="10dp"/>
-
+        tools:layout_editor_absoluteY="1dp" />
 
 
 </LinearLayout>
