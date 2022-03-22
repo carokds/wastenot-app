@@ -12,13 +12,11 @@
     <string name="delete">delete</string>
     <string name="category">"Category"</string>
     <string name="dietary_requirements">Dietary requirements</string>
-    <string-array name="diet_array">
-        <item>None</item>
-        <item>Gluten Free</item>
-        <item>Ketogenic</item>
-        <item>Vegetarian</item>
-        <item>Vegan</item>
-        <item>Pescetarian</item>
-        <item>Low FODMAP</item>
-    </string-array>
+    <string name="none">None</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="vegan">Vegan</string>
+    <string name="keto">Keto</string>
+    <string name="pescatarian">Pescatarian</string>
+    <string name="celiac">Celiac</string>
+
 </resources>
