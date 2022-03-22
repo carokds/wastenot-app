@@ -21,7 +21,6 @@ class FoodDetailFragment : Fragment(R.layout.fragment_food_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
 
         binding = FragmentFoodDetailBinding.bind(view)
 
@@ -29,6 +28,10 @@ class FoodDetailFragment : Fragment(R.layout.fragment_food_detail) {
 
         retrieveFoodObject(view)
 
+        setStatusBarAppearance()
+    }
+
+    private fun setStatusBarAppearance() {
         // To show content behind status and navigation bar
         val window = activity?.window
         window?.setFlags(

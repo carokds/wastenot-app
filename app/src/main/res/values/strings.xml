@@ -19,5 +19,6 @@
 
     <string name="recipes">recipes</string>
     <string name="delete">delete</string>
+    <string name="in_your_kitchen">In your kitchen</string>
 
 </resources>
