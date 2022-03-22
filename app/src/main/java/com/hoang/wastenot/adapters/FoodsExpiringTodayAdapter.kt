@@ -10,7 +10,7 @@ import coil.load
 import com.hoang.wastenot.R
 import com.hoang.wastenot.models.Food
 
-class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsViewHolder>() {
+class FoodsExpiringTodayAdapter() : RecyclerView.Adapter<FoodsExpiringTodayAdapter.FoodsViewHolder>() {
 
     var onItemClicked: (Food) -> Unit = { }
 
@@ -23,7 +23,7 @@ class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsVi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_food_copy, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_food_exp_today, parent, false)
         return FoodsViewHolder(view)
     }
 
@@ -35,9 +35,6 @@ class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsVi
         }
         holder.foodName.text = currentData.name
 
-        val expDate =
-            "${currentData.expirationDate.toDate().date}-${currentData.expirationDate.toDate().month + 1}-${currentData.expirationDate.toDate().year - 100}"
-        holder.foodExpDate.text = expDate
         holder.itemView.setOnClickListener { onItemClicked(currentData) }
     }
 
@@ -48,6 +45,5 @@ class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsVi
     class FoodsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var foodImage: ImageView = view.findViewById(R.id.iv_food)
         var foodName: TextView = view.findViewById(R.id.tv_food_name)
-        var foodExpDate: TextView = view.findViewById(R.id.tv_exp_date)
     }
 }

@@ -9,11 +9,8 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.Timestamp
@@ -28,7 +25,6 @@ import com.hoang.wastenot.repositories.UserRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.io.IOException
-import java.time.Instant.now
 import java.util.*
 
 class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
