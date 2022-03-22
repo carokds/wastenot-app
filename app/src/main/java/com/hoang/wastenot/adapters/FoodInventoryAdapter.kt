@@ -23,7 +23,7 @@ class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsVi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_food, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_food_copy, parent, false)
         return FoodsViewHolder(view)
     }
 
