@@ -24,10 +24,6 @@ import com.hoang.wastenot.R
 import com.hoang.wastenot.databinding.FragmentBarcodeScannerBinding
 import com.hoang.wastenot.repositories.BarcodeRepository
 import com.hoang.wastenot.viewmodels.BarcodeSharedViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.util.concurrent.ExecutorService
@@ -36,6 +32,7 @@ import java.util.concurrent.Executors
 class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner), KoinComponent {
     private lateinit var binding: FragmentBarcodeScannerBinding
     private lateinit var cameraExecutor: ExecutorService
+    private lateinit var bottomSheetAddFragment : BottomSheetAddFragment
 
     private val viewModel: BarcodeSharedViewModel by activityViewModels()
 
@@ -57,9 +54,11 @@ class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner), Koin
             activity?.requestPermissions(REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         }
 
-        viewModel.showBottomSheetDialong.observe(viewLifecycleOwner){
+        viewModel.showBottomSheetDialog.observe(viewLifecycleOwner){
             if (it == true) {
                 displayFragment()
+            } else {
+                code = null
             }
         }
         cameraExecutor = Executors.newSingleThreadExecutor()
@@ -83,7 +82,6 @@ class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner), Koin
             }
         }
     }
-
 
     fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
@@ -129,6 +127,8 @@ class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner), Koin
                         this, cameraSelector, preview, imageAnalyzer
                     )
 
+
+
                 } catch (exc: Exception) {
                     Log.e(TAG, "Use case binding failed", exc)
                 }
@@ -140,12 +140,12 @@ class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner), Koin
     @SuppressLint("UnsafeOptInUsageError")
     fun processImageProxy(
         barcodeScanner: BarcodeScanner,
-        imageProxy: ImageProxy
+        imageProxy: ImageProxy,
+
     ) {
         val mediaImage = imageProxy.image
         if (mediaImage != null) {
             val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
-
             barcodeScanner.process(image)
                 .addOnSuccessListener { barcodes ->
                     barcodes.forEach { barcode ->
@@ -162,6 +162,7 @@ class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner), Koin
                     // When the image is from CameraX analysis use case, must call image.close() on received
                     // images when finished using them. Otherwise, new images may not be received or the camera
                     // may stall.
+                    mediaImage.close()
                     imageProxy.close()
                 }
         }
@@ -172,16 +173,6 @@ class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner), Koin
         bottomSheetAddFragment.show(parentFragmentManager, "BottomSheetDialog")
     }
 
-    private fun getInfo(barcode: String?) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val barcodeResponse = repository.getBarcodeResponse(barcode)
-            withContext(Dispatchers.IO) {
-                if (barcodeResponse != null) {
-                    displayFragment()
-                }
-            }
-        }
-    }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         activity?.checkSelfPermission(it) == PackageManager.PERMISSION_GRANTED

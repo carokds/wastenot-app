@@ -79,5 +79,13 @@ class BottomSheetAddFragment : BottomSheetDialogFragment() {
         }
     }
 
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+        viewModel.hideBottomSheetDialog()
+    }
 
+    override fun dismiss() {
+        super.dismiss()
+        viewModel.hideBottomSheetDialog()
+    }
 }
