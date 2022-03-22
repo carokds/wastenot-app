@@ -1,6 +1,10 @@
 package com.hoang.wastenot.api
 
+import com.google.firebase.firestore.local.LruGarbageCollector
 import com.google.gson.annotations.SerializedName
+
+
+data class RecipeRootResponse (val results: ArrayList<RecipeResponse>)
 
 
 data class RecipeResponse(
