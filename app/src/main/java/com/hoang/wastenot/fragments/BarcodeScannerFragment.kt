@@ -167,7 +167,7 @@ class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner), Koin
         }
     }
 
-    fun displayFragment() {
+    private fun displayFragment() {
         val bottomSheetAddFragment = BottomSheetAddFragment()
         bottomSheetAddFragment.show(parentFragmentManager, "BottomSheetDialog")
     }
@@ -186,6 +186,7 @@ class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner), Koin
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         activity?.checkSelfPermission(it) == PackageManager.PERMISSION_GRANTED
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
