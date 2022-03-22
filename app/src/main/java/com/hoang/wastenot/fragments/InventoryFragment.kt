@@ -90,20 +90,6 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
                     )
                 }
 
-//                onDeleteBtnClicked = { food ->
-//                    Firebase.firestore.collection("foods").document(food.id)
-//                        .delete()
-//                        .addOnSuccessListener {
-//                            Log.d(
-//                                "x",
-//                                "DocumentSnapshot successfully deleted!"
-//                            )
-//                        }
-//                        .addOnFailureListener { e -> Log.w("x", "Error deleting document", e) }
-//                }
-
-
-
             }
         }
     }

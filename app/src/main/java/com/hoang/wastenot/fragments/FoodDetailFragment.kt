@@ -1,11 +1,10 @@
 package com.hoang.wastenot.fragments
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -13,7 +12,7 @@ import com.hoang.wastenot.R
 import com.hoang.wastenot.databinding.FragmentFoodDetailBinding
 import com.hoang.wastenot.models.Food
 
-class FoodDetailFragment : Fragment(R.layout.fragment_food_detail){
+class FoodDetailFragment : Fragment(R.layout.fragment_food_detail) {
 
     private lateinit var binding: FragmentFoodDetailBinding
     private var food: Food = Food()
@@ -23,19 +22,20 @@ class FoodDetailFragment : Fragment(R.layout.fragment_food_detail){
 
         binding = FragmentFoodDetailBinding.bind(view)
 
-        val currentFood = this.arguments
+        onHomeBtnClicked(view)
 
-        currentFood?.getParcelable<Food>("Food").apply {
-        binding.btnUseMe.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putParcelable("Food", this)
-            Navigation.findNavController(view).navigate(R.id.action_foodDetailFragment_to_recipesFragment, bundle)
-        }}
+        retrieveFoodObject(view)
 
+    }
+
+
+    private fun onHomeBtnClicked(view: View) {
         binding.btnHomeFooddetailfragment.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
         }
+    }
 
+    private fun retrieveFoodObject(view: View) {
         val bundle = this.arguments
 
         bundle?.getParcelable<Food>("Food").apply {
@@ -43,6 +43,39 @@ class FoodDetailFragment : Fragment(R.layout.fragment_food_detail){
                 .addSnapshotListener { document, error ->
                     setFood(document?.toObject(Food::class.java))
                 }
+            onRecipesBtnClicked(view)
+            onDeleteBtnClicked(this)
+            setExpirationDate(this)
+            setCategory()
+
+        }
+    }
+
+    private fun Food.setCategory() {
+        binding.tvProductDetailCategory.text =
+            "${this.category[0].toUpperCase()}${this.category.substring(1)}"
+    }
+
+    private fun setExpirationDate(food: Food) {
+        val expDate =
+            "This product is expiring on: ${food.expirationDate.toDate().date}-${food.expirationDate.toDate().month + 1}-${food.expirationDate.toDate().year - 100}"
+        binding.tvProductExpDate.text = expDate
+    }
+
+    private fun onDeleteBtnClicked(food: Food) {
+        binding.btnDeleteProduct.setOnClickListener {
+            Firebase.firestore.collection("foods").document(food.id)
+                .delete()
+            findNavController().navigate(R.id.inventoryFragment)
+        }
+    }
+
+    private fun Food?.onRecipesBtnClicked(view: View) {
+        binding.btnUseMe.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putParcelable("Food", this)
+            Navigation.findNavController(view)
+                .navigate(R.id.action_foodDetailFragment_to_recipesFragment, bundle)
         }
     }
 
@@ -52,7 +85,6 @@ class FoodDetailFragment : Fragment(R.layout.fragment_food_detail){
         }
         this.food = food
         binding.tvTitleDetails.text = food.name
-        binding.ivTemporaryDetail.load(food.pictureUrl)
-
+        binding.ivFoodDetail.load(food.pictureUrl)
     }
 }
