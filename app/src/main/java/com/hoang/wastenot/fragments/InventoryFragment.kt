@@ -72,6 +72,10 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
 
         setOnLogoutBtnClicked()
 
+        setStatusBarAppearance()
+    }
+
+    private fun setStatusBarAppearance() {
         val window = activity?.window
         window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
