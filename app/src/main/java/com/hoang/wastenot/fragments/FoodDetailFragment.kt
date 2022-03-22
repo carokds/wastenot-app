@@ -21,6 +21,7 @@ class FoodDetailFragment : Fragment(R.layout.fragment_food_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
 
         binding = FragmentFoodDetailBinding.bind(view)
 

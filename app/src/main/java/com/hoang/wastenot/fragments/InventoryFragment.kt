@@ -61,6 +61,7 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding = FragmentInventoryBinding.bind(view)
 
         setInitialisation()

@@ -25,6 +25,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         binding = FragmentRecipesBinding.bind(view)
         var noDiet = " "
         var ingredient = ""
