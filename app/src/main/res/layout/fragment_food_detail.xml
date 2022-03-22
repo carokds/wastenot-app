@@ -12,11 +12,14 @@
         android:id="@+id/btn_home_fooddetailfragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        style="?attr/borderlessButtonStyle"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/shape"
+        android:padding="2dp"
         android:src="@drawable/ic_home"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_title_details"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/tv_title_details"
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/tv_title_details"
@@ -31,35 +34,47 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="BURGUER" />
 
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardview_white_bg"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="170dp"
         app:cardCornerRadius="30dp"
-        app:cardElevation="9dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title_details"
         app:layout_constraintVertical_bias=".7">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/btn_use_me"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="300dp"
-                android:text="Use me"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
     </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btn_use_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/green"
+        android:gravity="center"
+        android:text="@string/recipes"
+        android:textColor="@color/white"
+        app:icon="@drawable/ic_recipe"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btn_delete_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/white"
+        android:gravity="center"
+        android:text="@string/delete"
+        android:textColor="@color/green"
+        app:icon="@drawable/ic_delete"
+        app:iconTint="@color/green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardview_details_img"
