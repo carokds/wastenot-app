@@ -4,28 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.InventoryFragment"
-    android:layout_marginTop="20dp">
+    android:layout_marginTop="30dp"
+    tools:context=".fragments.InventoryFragment">
 
 
     <ImageButton
         android:id="@+id/btn_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_logout"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_hello"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_hello"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_hello"
-        app:tint="@color/orange"
-        android:layout_marginEnd="24dp"
-        />
+        app:tint="@color/orange" />
 
     <TextView
         android:id="@+id/tv_hello"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
         android:text="@string/hello_user"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,62 +34,61 @@
         android:id="@+id/tv_title_inventory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/what_are_we_cooking_today"
-        android:textSize="24sp"
-        android:maxLines="2"
         android:lines="2"
+        android:maxLines="2"
+        android:text="@string/what_are_we_cooking_today"
+        android:textColor="@color/black"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/tv_hello"
-        app:layout_constraintTop_toBottomOf="@id/tv_hello"
-        android:textColor="@color/black"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_hello" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
+        android:backgroundTint="#35926c"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_add"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/white"
-        android:backgroundTint="#35926c"/>
+        app:tint="@color/white" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_add_by_scan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:backgroundTint="#35926c"
         android:src="@drawable/ic_scanner"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/btn_add"
         app:layout_constraintStart_toStartOf="@id/btn_add"
         app:tint="@color/white"
-        tools:visibility="visible"
-        android:backgroundTint="#35926c"/>
+        tools:visibility="visible" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_add_manually"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:backgroundTint="#35926c"
         android:src="@drawable/ic_text_fields"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/btn_add_by_scan"
         app:layout_constraintStart_toStartOf="@id/btn_add_by_scan"
         app:tint="@color/white"
-        tools:visibility="visible"
-        android:backgroundTint="#35926c"/>
+        tools:visibility="visible" />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_foods_inventory"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="30dp"
         android:orientation="vertical"
-        android:paddingTop="5dp"
+        android:paddingTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

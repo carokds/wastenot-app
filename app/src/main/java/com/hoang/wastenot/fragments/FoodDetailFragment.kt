@@ -2,6 +2,8 @@ package com.hoang.wastenot.fragments
 
 import android.os.Bundle
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -27,6 +29,12 @@ class FoodDetailFragment : Fragment(R.layout.fragment_food_detail) {
 
         retrieveFoodObject(view)
 
+        // To show content behind status and navigation bar
+        val window = activity?.window
+        window?.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+        )
     }
 
 
