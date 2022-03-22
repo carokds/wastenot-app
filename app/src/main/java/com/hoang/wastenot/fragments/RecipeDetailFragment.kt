@@ -26,7 +26,6 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
 
         binding = FragmentRecipeDetailBinding.bind(view)
         binding.loadingAnimation.visibility = View.VISIBLE
-        binding.cvWebview.visibility = View.GONE
         val handler = Handler(Looper.getMainLooper())
 
 
@@ -50,7 +49,6 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
             }
             handler.postDelayed({
                 binding.loadingAnimation.visibility = View.GONE
-                binding.cvWebview.visibility = View.VISIBLE
             }, 2000)
         }
 
