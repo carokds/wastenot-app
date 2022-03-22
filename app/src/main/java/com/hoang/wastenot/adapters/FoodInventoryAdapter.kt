@@ -23,7 +23,7 @@ class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsVi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_food_copy, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_food, parent, false)
         return FoodsViewHolder(view)
     }
 
@@ -36,7 +36,7 @@ class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsVi
         holder.foodName.text = currentData.name
 
         val expDate =
-            "${currentData.expirationDate.toDate().date}-${currentData.expirationDate.toDate().month + 1}-${currentData.expirationDate.toDate().year - 100}"
+            "Exp: ${currentData.expirationDate.toDate().date}-${currentData.expirationDate.toDate().month + 1}-${currentData.expirationDate.toDate().year - 100}"
         holder.foodExpDate.text = expDate
         holder.itemView.setOnClickListener { onItemClicked(currentData) }
     }

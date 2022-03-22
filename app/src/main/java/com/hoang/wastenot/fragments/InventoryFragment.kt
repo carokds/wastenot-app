@@ -93,7 +93,7 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
     private fun setInitialisation() {
         binding.rvFoodsInventory.apply {
 //            layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             adapter = FoodInventoryAdapter().apply {
 
                 onItemClicked = {
@@ -181,7 +181,8 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
     }
 
     private fun setUserData(currentUser: User) {
-        binding.tvHello.text = "Hello ${currentUser.displayName}!"
+        binding.tvHello.text = "Hey,"
+        binding.tvTitleInventory.text = "${currentUser.displayName}!"
         val now = com.google.firebase.Timestamp.now()
 
 
