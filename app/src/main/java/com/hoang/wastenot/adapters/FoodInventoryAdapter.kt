@@ -7,10 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.google.android.material.button.MaterialButton
 import com.hoang.wastenot.R
 import com.hoang.wastenot.models.Food
-import java.util.*
 
 class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsViewHolder>() {
 
@@ -38,10 +36,11 @@ class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsVi
         }
         holder.foodName.text = currentData.name
 
-        val expDate = "${currentData.expirationDate.toDate().date}-${currentData.expirationDate.toDate().month+1}-${currentData.expirationDate.toDate().year-100}"
+        val expDate =
+            "${currentData.expirationDate.toDate().date}-${currentData.expirationDate.toDate().month + 1}-${currentData.expirationDate.toDate().year - 100}"
         holder.foodExpDate.text = expDate
         holder.itemView.setOnClickListener { onItemClicked(currentData) }
-        holder.deleteBtn.setOnClickListener { onDeleteBtnClicked(currentData) }
+//        holder.deleteBtn.setOnClickListener { onDeleteBtnClicked(currentData) }
     }
 
     override fun getItemCount(): Int {
@@ -52,7 +51,7 @@ class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsVi
         var foodImage: ImageView = view.findViewById(R.id.iv_food)
         var foodName: TextView = view.findViewById(R.id.tv_food_name)
         var foodExpDate: TextView = view.findViewById(R.id.tv_exp_date)
-        var deleteBtn: MaterialButton = view.findViewById(R.id.btn_delete)
+//        var deleteBtn: MaterialButton = view.findViewById(R.id.btn_delete)
 
     }
 }

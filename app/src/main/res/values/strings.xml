@@ -7,6 +7,7 @@
     <string name="scan_product_barcode">Scan product barcode</string>
     <string name="hello_user">Hello user!</string>
     <string name="what_are_we_cooking_today">What are we cooking today?</string>
+    <string name="whats_in_our_kitchen">What\'s in our kitchen?</string>
     <string name="recipes">recipes</string>
     <string name="delete">delete</string>
     <string name="category">"Category"</string>
