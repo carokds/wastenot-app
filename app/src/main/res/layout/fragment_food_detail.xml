@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/background_4"
     tools:context=".fragments.FoodDetailFragment">
 
 
@@ -12,6 +12,8 @@
         android:id="@+id/btn_home_fooddetailfragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        style="?attr/borderlessButtonStyle"
         android:src="@drawable/ic_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +36,7 @@
         android:id="@+id/cardview_white_bg"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="170dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="9dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -63,7 +65,7 @@
         android:id="@+id/cardview_details_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="130dp"
         app:cardCornerRadius="100dp"
         app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
