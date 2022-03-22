@@ -1,18 +1,16 @@
 package com.hoang.wastenot.fragments
 
-import android.os.Build
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hoang.wastenot.R
@@ -23,8 +21,8 @@ import com.hoang.wastenot.models.User
 import com.hoang.wastenot.repositories.UserRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import java.time.Instant.now
 import java.util.*
+
 
 class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
 
@@ -74,6 +72,10 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
 
         setOnLogoutBtnClicked()
 
+        val window = activity?.window
+        window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window?.statusBarColor = resources.getColor(R.color.green)
     }
 
     private fun setInitialisation() {
