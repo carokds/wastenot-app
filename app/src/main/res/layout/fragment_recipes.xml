@@ -201,26 +201,13 @@ android:layout_marginTop="10dp">
     </LinearLayout>
 </HorizontalScrollView>
 
-    <!--</com.google.android.material.button.MaterialButtonToggleGroup>-->
-    <!--    <com.google.android.material.textfield.TextInputLayout-->
-    <!--        android:id="@+id/menu"-->
-    <!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="10dp"-->
-    <!--        android:hint="@string/dietary_requirements"-->
-    <!--        app:errorEnabled="true">-->
-
-    <!--        <AutoCompleteTextView-->
-    <!--            android:id="@+id/autocomplete_diet"-->
-    <!--            android:layout_width="fill_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:background="@color/pale_yellow"-->
-    <!--            android:textColor="@color/grey_text"-->
-    <!--            app:cardCornerRadius="10dp"-->
-    <!--            app:cardElevation="9dp" />-->
-
-    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/walking_avocado"
+        android:visibility="visible"
+        android:id="@+id/loading_animation"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

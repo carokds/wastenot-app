@@ -1,6 +1,8 @@
 package com.hoang.wastenot.fragments
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -29,8 +31,14 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         binding = FragmentRecipesBinding.bind(view)
         var noDiet = " "
         var ingredient = ""
+        binding.loadingAnimation.visibility = View.VISIBLE
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed({
+            binding.loadingAnimation.visibility = View.GONE
+        }, 500)
 
-      this.arguments?.getParcelable<Food>("Food").apply{
+
+        this.arguments?.getParcelable<Food>("Food").apply{
             if (this != null) {
                 viewModel.getRecipes(this.category, noDiet)
                 binding.tvTitleRecipes.text = "Recipes with " + this.category
