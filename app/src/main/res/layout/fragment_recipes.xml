@@ -12,34 +12,40 @@
         android:id="@+id/btn_home_recipesfragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:backgroundTint="@color/fui_transparent"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shape"
+        android:padding="2dp"
         android:src="@drawable/ic_home"
         app:cardCornerRadius="10dp"
         app:cardElevation="9dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/orange" />
+      android:layout_gravity="end"
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/tv_title_recipes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textColor="@color/grey_text"
-        android:textSize="35sp" />
-
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        tools:text="Recipes with"/>
 
     <HorizontalScrollView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
-        android:fillViewport="true">
+        android:fillViewport="true"
+      >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_gravity="center"
+            android:layout_gravity="left"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -53,7 +59,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/button_shape"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/diet_none"
                     app:tint="@color/grey_text" />
@@ -78,7 +84,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/button_shape"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/diet_vegetarian"
                     app:tint="@color/grey_text" />
@@ -102,7 +108,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/button_shape"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/diet_vegan"
                     app:tint="@color/grey_text" />
@@ -126,7 +132,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/button_shape"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/diet_keto"
                     app:tint="@color/grey_text" />
@@ -150,7 +156,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/button_shape"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/diet_pescatarian"
                     app:tint="@color/grey_text" />
@@ -174,7 +180,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/button_shape"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/diet_gluten"
                     app:tint="@color/grey_text" />
@@ -198,7 +204,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/button_shape"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/diet_fodmap"
                     app:tint="@color/grey_text" />
@@ -215,26 +221,13 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <!--</com.google.android.material.button.MaterialButtonToggleGroup>-->
-    <!--    <com.google.android.material.textfield.TextInputLayout-->
-    <!--        android:id="@+id/menu"-->
-    <!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="10dp"-->
-    <!--        android:hint="@string/dietary_requirements"-->
-    <!--        app:errorEnabled="true">-->
-
-    <!--        <AutoCompleteTextView-->
-    <!--            android:id="@+id/autocomplete_diet"-->
-    <!--            android:layout_width="fill_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:background="@color/pale_yellow"-->
-    <!--            android:textColor="@color/grey_text"-->
-    <!--            app:cardCornerRadius="10dp"-->
-    <!--            app:cardElevation="9dp" />-->
-
-    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/walking_avocado"
+        android:visibility="visible"
+        android:id="@+id/loading_animation"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

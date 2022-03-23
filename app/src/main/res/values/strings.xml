@@ -8,7 +8,7 @@
     <string name="hello_user">Hello user!</string>
     <string name="what_are_we_cooking_today">What are we cooking today?</string>
     <string name="whats_in_our_kitchen">What\'s in our kitchen?</string>
-    <string name="category">"Category"</string>
+    <string name="category">"Pick a category"</string>
     <string name="dietary_requirements">Dietary requirements</string>
     <string name="none">None</string>
     <string name="vegetarian">Vegetarian</string>
@@ -20,5 +20,7 @@
     <string name="recipes">recipes</string>
     <string name="delete">delete</string>
     <string name="in_your_kitchen">In your kitchen</string>
+    <string name="select_a_date">Select a date</string>
+    <string name="pick_a_date">Pick a date</string>
 
 </resources>

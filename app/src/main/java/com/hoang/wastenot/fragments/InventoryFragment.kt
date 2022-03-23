@@ -137,6 +137,7 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
         }
     }
 
+
     private fun setClickable(clicked: Boolean) {
         binding.btnAddByScan.isClickable = !clicked
         binding.btnAddManually.isClickable = !clicked

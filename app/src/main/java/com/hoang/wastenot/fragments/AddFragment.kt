@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import coil.load
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -54,11 +56,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
         }
 
-        binding.btnScan.setOnClickListener {
-            Navigation.findNavController(view)
-                .navigate(R.id.action_addFragment_to_barcodeScannerFragment)
-        }
-
         setOnUploadPictureBtnClicked()
         readIngredients()
         setOnSaveButtonClicked()
@@ -93,7 +90,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                 .setValidator(DateValidatorPointForward.now())
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Select date")
+                .setTitleText("Pick a date")
                 .setCalendarConstraints(constraintsBuilder.build())
                 .build()
 
@@ -103,6 +100,8 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             datePicker
                 .addOnPositiveButtonClickListener {
                     expDate = Date(it)
+                    binding.etDate.hint =
+                        "${expDate!!.date}-${expDate!!.month + 1}-${expDate!!.year - 100}"
                 }
         }
     }
@@ -130,11 +129,13 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
                 // Request the public download URL
                 photoRef.downloadUrl
+
             }.addOnSuccessListener { downloadUri ->
                 // Upload succeeded
                 Log.d(TAG, "uploadFromUri: getDownloadUri success: $downloadUri")
 
                 picUrl = downloadUri.toString()
+                binding.ivSelectedPic.load(picUrl)
 
             }.addOnFailureListener { exception ->
                 // Upload failed
@@ -186,6 +187,8 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                 .addOnFailureListener { e ->
                     Log.w("Failure Add Message", "Error adding document", e)
                 }
+
+            findNavController().navigate(R.id.inventoryFragment)
 
         }
     }
