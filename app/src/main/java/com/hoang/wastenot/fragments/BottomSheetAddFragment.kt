@@ -3,56 +3,47 @@ package com.hoang.wastenot.fragments
 import android.content.DialogInterface
 import android.content.res.Resources
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.hoang.wastenot.R
 import com.hoang.wastenot.databinding.FragmentBottomSheetAddBinding
+import com.hoang.wastenot.models.Food
+import com.hoang.wastenot.repositories.CSVReader
+import com.hoang.wastenot.repositories.UserRepository
 import com.hoang.wastenot.viewmodels.BarcodeSharedViewModel
 import com.squareup.picasso.Picasso
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import java.io.IOException
+import java.util.*
 
 
-class BottomSheetAddFragment : BottomSheetDialogFragment() {
+class BottomSheetAddFragment : BottomSheetDialogFragment(), KoinComponent {
 
     private lateinit var binding: FragmentBottomSheetAddBinding
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+
     private val viewModel: BarcodeSharedViewModel by activityViewModels()
+    private val userRepository: UserRepository by inject()
 
-    /*
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val bottomSheet = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+    private var picUrl: String? = null
+    private var expDate: Date? = null
+    private var category: String? = null
 
-        //inflating layout
-        val view = View.inflate(context, R.layout.fragment_bottom_sheet_add, null)
 
-        //binding views to data binding.
-        binding = FragmentBottomSheetAddBinding.bind(view)
-
-        //setting layout with bottom sheet
-        bottomSheet.setContentView(view)
-
-        bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
-
-        bottomSheetBehavior.isDraggable = true
-
-        //setting Peek at the 16:9 ratio keyline of its parent.
-        //bottomSheetBehavior.peekHeight = BottomSheetBehavior.PEEK_HEIGHT_AUTO
-        bottomSheetBehavior.peekHeight = 500
-
-        //setting max height of bottom sheet
-        binding.extraSpace.minimumHeight = Resources.getSystem().displayMetrics.heightPixels
-
-        return bottomSheet
-    }
-
-    override fun onStart() {
-        super.onStart()
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-    }
-    */
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,16 +57,114 @@ class BottomSheetAddFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBottomSheetAddBinding.bind(view)
+
+        //Add product functionality
+        readIngredients()
+        setOnSaveButtonClicked()
+        setOnDatePickerClicked(view)
+
+
         binding.extraSpace.minimumHeight = Resources.getSystem().displayMetrics.heightPixels
+
         viewModel.product.observe(viewLifecycleOwner) {
-            val product = it.product
-            Picasso.get().load(product.imageFrontUrl).into(binding.ivProduct)
-            if (product.genericName != null && product.genericName != "") {
-                binding.tvProductName.text = product.genericName
-            } else {
-                binding.tvProductName.text = product.productName
+            it?.product?.let { product ->
+                Picasso.get().load(product.imageFrontUrl).into(binding.ivProduct)
+                picUrl = product.imageFrontUrl
+                if (product.genericName != null && product.genericName != "") {
+                    binding.tvProductName.text = product.genericName
+                    binding.etFoodName.setText(product.genericName)
+                } else {
+                    binding.tvProductName.text = product.productName
+                    binding.etFoodName.setText(product.productName)
+                }
+                binding.tvProductBrand.text = product.brands
+
             }
-            binding.tvProductBrand.text = product.brands
+        }
+    }
+
+    private fun readIngredients() {
+        var rows = mutableListOf<String>()
+        val csvReader = CSVReader(requireContext(), "top_1k_ingredients")
+        try {
+            rows = csvReader.readCSV()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        rows.size
+
+        val textView = (binding.autocompleteCategory) as AutoCompleteTextView
+
+        val categories: MutableList<String> = rows
+
+        ArrayAdapter(requireContext(), R.layout.item_category, categories).also { adapter ->
+            textView.setAdapter(adapter)
+        }
+
+    }
+
+    private fun setOnDatePickerClicked(view: View) {
+        val constraintsBuilder =
+            CalendarConstraints.Builder()
+                .setValidator(DateValidatorPointForward.now())
+        val datePicker =
+            MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select date")
+                .setCalendarConstraints(constraintsBuilder.build())
+                .build()
+
+        binding.btnAddExpDate.setOnClickListener {
+            datePicker
+                .show(parentFragmentManager, "tag")
+            datePicker
+                .addOnPositiveButtonClickListener {
+                    expDate = Date(it)
+                }
+        }
+    }
+
+    private fun setOnSaveButtonClicked() {
+        binding.btnSaveFood.setOnClickListener {
+
+            if (picUrl == null) {
+                Toast.makeText(activity, "You haven't selected a picture yet", Toast.LENGTH_SHORT)
+                    .show()
+                return@setOnClickListener
+            } else if (expDate == null) {
+                Toast.makeText(
+                    activity,
+                    "You haven't selected an expiration date",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            val currentUser = userRepository.getCurrentUser() ?: return@setOnClickListener
+            val foodName = binding.etFoodName.text.toString()
+            category = binding.autocompleteCategory.text.toString()
+
+            val foodRef = Firebase.firestore.collection("foods").document()
+
+             val food = Food(
+                 foodRef.id,
+                 foodName,
+                 Timestamp(expDate!!),
+                 picUrl,
+                 category!!,
+                 currentUser.email
+             )
+
+            foodRef.set(food)
+                .addOnSuccessListener { documentReference ->
+                    Log.d(
+                        "Successful Add Message",
+                        "DocumentSnapshot added with ID: ${foodRef.id}"
+                    )
+                }
+                .addOnFailureListener { e ->
+                    Log.w("Failure Add Message", "Error adding document", e)
+                }
+
         }
     }
 
