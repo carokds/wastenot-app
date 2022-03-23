@@ -76,13 +76,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_category" />
 
-    <Button
-        android:id="@+id/btn_save_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TEST TIME"
-        app:layout_constraintTop_toBottomOf="@+id/et_category"
-        app:layout_constraintStart_toEndOf="@+id/btn_save_food" />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_scan"
