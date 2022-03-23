@@ -8,17 +8,19 @@
     android:orientation="vertical"
     tools:context=".fragments.RecipesFragment">
 
+
     <ImageButton
         android:id="@+id/btn_home_recipesfragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/fui_transparent"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape"
+        android:padding="2dp"
         android:src="@drawable/ic_home"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="9dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/orange" />
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/tv_title_recipes"
