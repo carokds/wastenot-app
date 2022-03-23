@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
@@ -62,7 +63,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
     }
 
 
-
     private fun readIngredients() {
         var rows = mutableListOf<String>()
         val csvReader = CSVReader(requireContext(), "top_1k_ingredients")
@@ -99,7 +99,8 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             datePicker
                 .addOnPositiveButtonClickListener {
                     expDate = Date(it)
-                    binding.etDate.hint = expDate.toString()
+                    binding.etDate.hint =
+                        "${expDate!!.date}-${expDate!!.month + 1}-${expDate!!.year - 100}"
                 }
         }
     }
@@ -184,6 +185,8 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                 .addOnFailureListener { e ->
                     Log.w("Failure Add Message", "Error adding document", e)
                 }
+
+            findNavController().navigate(R.id.inventoryFragment)
 
         }
     }
