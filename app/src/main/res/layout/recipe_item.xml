@@ -21,7 +21,7 @@
 
 
                 <ImageView
-                    android:id="@+id/iv_recipe_image"
+                    android:id="@+id/iv_add_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
@@ -35,8 +35,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/card_gradient"
-                    app:layout_constraintStart_toStartOf="@id/iv_recipe_image"
-                    app:layout_constraintTop_toTopOf="@id/iv_recipe_image" />
+                    app:layout_constraintStart_toStartOf="@id/iv_add_image"
+                    app:layout_constraintTop_toTopOf="@id/iv_add_image" />
 
 
                 <TextView

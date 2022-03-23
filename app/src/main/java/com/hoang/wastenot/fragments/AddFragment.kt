@@ -138,6 +138,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
                 picUrl = downloadUri.toString()
                 binding.ivSelectedPic.load(picUrl)
+                binding.ivAddImage.load(picUrl)
 
             }.addOnFailureListener { exception ->
                 // Upload failed

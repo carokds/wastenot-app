@@ -26,7 +26,7 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.ListViewHolder>() {
 
         init {
             recipeTitle = view.findViewById(R.id.tv_recipe_title)
-            recipeImage = view.findViewById(R.id.iv_recipe_image)
+            recipeImage = view.findViewById(R.id.iv_add_image)
 
         }
 
