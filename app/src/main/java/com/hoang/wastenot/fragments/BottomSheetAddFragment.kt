@@ -11,7 +11,8 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
@@ -44,7 +45,6 @@ class BottomSheetAddFragment : BottomSheetDialogFragment(), KoinComponent {
     private var category: String? = null
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -63,11 +63,17 @@ class BottomSheetAddFragment : BottomSheetDialogFragment(), KoinComponent {
         setOnSaveButtonClicked()
         setOnDatePickerClicked(view)
 
-
+        binding.btnAddManually.setOnClickListener {
+            dismiss()
+            findNavController().navigate(R.id.addFragment)
+        }
         binding.extraSpace.minimumHeight = Resources.getSystem().displayMetrics.heightPixels
 
         viewModel.product.observe(viewLifecycleOwner) {
             it?.product?.let { product ->
+                binding.layoutAdd.visibility = View.VISIBLE
+                binding.btnSaveFood.visibility = View.VISIBLE
+                binding.btnAddManually.visibility = View.GONE
                 Picasso.get().load(product.imageFrontUrl).into(binding.ivProduct)
                 picUrl = product.imageFrontUrl
                 if (product.genericName != null && product.genericName != "") {
@@ -119,6 +125,8 @@ class BottomSheetAddFragment : BottomSheetDialogFragment(), KoinComponent {
             datePicker
                 .addOnPositiveButtonClickListener {
                     expDate = Date(it)
+                    binding.etDate.setText("${expDate!!.date}-${expDate!!.month + 1}-${expDate!!.year - 100}")
+
                 }
         }
     }
@@ -145,14 +153,14 @@ class BottomSheetAddFragment : BottomSheetDialogFragment(), KoinComponent {
 
             val foodRef = Firebase.firestore.collection("foods").document()
 
-             val food = Food(
-                 foodRef.id,
-                 foodName,
-                 Timestamp(expDate!!),
-                 picUrl,
-                 category!!,
-                 currentUser.email
-             )
+            val food = Food(
+                foodRef.id,
+                foodName,
+                Timestamp(expDate!!),
+                picUrl,
+                category!!,
+                currentUser.email
+            )
 
             foodRef.set(food)
                 .addOnSuccessListener { documentReference ->
@@ -164,7 +172,8 @@ class BottomSheetAddFragment : BottomSheetDialogFragment(), KoinComponent {
                 .addOnFailureListener { e ->
                     Log.w("Failure Add Message", "Error adding document", e)
                 }
-
+            dismiss()
+            Toast.makeText(activity, "Product added!", Toast.LENGTH_SHORT).show()
         }
     }
 
