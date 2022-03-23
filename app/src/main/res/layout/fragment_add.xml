@@ -109,7 +109,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/taco"
+            android:src="@drawable/foodplaceholder"
             app:layout_constraintEnd_toStartOf="@id/btn_add_food_picture"
             app:layout_constraintStart_toStartOf="parent" />
     </com.google.android.material.card.MaterialCardView>
@@ -131,6 +131,6 @@
         android:layout_height="wrap_content"
         android:text="@string/save"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_selected_pic" />
+        app:layout_constraintTop_toBottomOf="@id/cardview_selected_img" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
