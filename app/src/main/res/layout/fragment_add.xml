@@ -12,10 +12,10 @@
         android:id="@+id/btn_home_addfragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/shape"
-        android:padding="4dp"
-        android:src="@drawable/ic_logout"
+        android:padding="2dp"
+        android:src="@drawable/ic_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/white" />
@@ -34,9 +34,10 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_input_layout_food_name"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:hint="Food"
         app:layout_constraintTop_toBottomOf="@+id/tv_title_add">
 
@@ -44,29 +45,10 @@
             android:id="@+id/et_food_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/green"
             app:layout_constraintTop_toBottomOf="@+id/tv_title_add" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_add_exp_date"
-        style="?attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Exp date"
-        android:textColor="@color/purple_500"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_food_name" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_add_food_picture"
-        style="?attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/upload_picture"
-        android:textColor="@color/purple_500"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_add_exp_date" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_category"
@@ -74,15 +56,74 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/category"
-        app:layout_constraintTop_toBottomOf="@+id/btn_add_food_picture">
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_food_name">
 
         <AutoCompleteTextView
             android:id="@+id/autocomplete_category"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/green" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_date"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Select a date"
+        app:layout_constraintTop_toBottomOf="@+id/et_category">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_add" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/btn_add_exp_date"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ic_calendar"
+        app:layout_constraintBottom_toBottomOf="@id/text_input_layout_date"
+        app:layout_constraintEnd_toEndOf="@id/text_input_layout_date"
+        app:layout_constraintTop_toTopOf="@id/text_input_layout_date"
+        app:tint="@color/green" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardview_selected_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_input_layout_date">
+
+        <ImageView
+            android:id="@+id/iv_selected_pic"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/taco"
+            app:layout_constraintEnd_toStartOf="@id/btn_add_food_picture"
+            app:layout_constraintStart_toStartOf="parent" />
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_add_food_picture"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/upload_picture"
+        android:textColor="@color/green"
+        app:layout_constraintStart_toEndOf="@id/cardview_selected_img"
+        app:layout_constraintTop_toBottomOf="@id/text_input_layout_date" />
 
     <Button
         android:id="@+id/btn_save_food"
@@ -90,15 +131,6 @@
         android:layout_height="wrap_content"
         android:text="@string/save"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_category" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_scan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_scanner" />
+        app:layout_constraintTop_toBottomOf="@id/iv_selected_pic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
