@@ -126,6 +126,8 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
         }
 
         binding.btnAddByScan.setOnClickListener {
+            Navigation.findNavController(view)
+                .navigate(R.id.action_inventoryFragment_to_barcodeScannerFragment)
 
         }
 

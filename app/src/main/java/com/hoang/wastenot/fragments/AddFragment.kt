@@ -35,6 +35,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
     private var picUrl: String? = null
     private var expDate: Date? = null
     private var category: String? = null
+
     private val launchCameraIntentLauncher =
         registerForActivityResult(ActivityResultContracts.OpenDocument()) { fileUri ->
             if (fileUri != null) {
@@ -64,7 +65,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         setOnDatePickerClicked(view)
 
     }
-
 
 
     private fun readIngredients() {
@@ -164,6 +164,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             val currentUser = userRepository.getCurrentUser() ?: return@setOnClickListener
             val foodName = binding.etFoodName.text.toString()
             category = binding.autocompleteCategory.text.toString()
+
             val foodRef = Firebase.firestore.collection("foods").document()
 
             val food = Food(
