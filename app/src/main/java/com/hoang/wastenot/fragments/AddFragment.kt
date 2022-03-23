@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import coil.load
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -126,11 +127,13 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
                 // Request the public download URL
                 photoRef.downloadUrl
+
             }.addOnSuccessListener { downloadUri ->
                 // Upload succeeded
                 Log.d(TAG, "uploadFromUri: getDownloadUri success: $downloadUri")
 
                 picUrl = downloadUri.toString()
+                binding.ivSelectedPic.load(picUrl)
 
             }.addOnFailureListener { exception ->
                 // Upload failed
