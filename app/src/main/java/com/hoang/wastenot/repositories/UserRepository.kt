@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.google.firebase.auth.FirebaseAuth
+import com.hoang.wastenot.R
 
 import com.hoang.wastenot.models.User
 
@@ -38,6 +39,7 @@ class UserRepository {
         val signInIntent = AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)
+            .setTheme(R.style.Theme_WasteNot)
             .build()
 
         val signInLauncher = activityResultRegistry.register(

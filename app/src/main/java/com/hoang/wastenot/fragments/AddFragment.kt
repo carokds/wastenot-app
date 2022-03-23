@@ -51,15 +51,18 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
         binding = FragmentAddBinding.bind(view)
 
-        binding.btnHomeAddfragment.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
-        }
-
+        setOnHomeBtnClicked(view)
         setOnUploadPictureBtnClicked()
         readIngredients()
         setOnSaveButtonClicked()
         setOnDatePickerClicked(view)
 
+    }
+
+    private fun setOnHomeBtnClicked(view: View) {
+        binding.btnHomeAddfragment.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
+        }
     }
 
 
