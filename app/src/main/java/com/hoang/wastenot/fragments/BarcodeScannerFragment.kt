@@ -43,6 +43,8 @@ class BarcodeScannerFragment : Fragment(R.layout.fragment_barcode_scanner), Koin
     var code: String? = null
 
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBarcodeScannerBinding.bind(view)
