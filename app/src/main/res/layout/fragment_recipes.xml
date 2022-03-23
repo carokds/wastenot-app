@@ -12,26 +12,32 @@
         android:id="@+id/btn_home_recipesfragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:backgroundTint="@color/fui_transparent"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape"
+        android:padding="2dp"
         android:src="@drawable/ic_home"
         app:cardCornerRadius="10dp"
         app:cardElevation="9dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/orange" />
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/tv_title_recipes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textColor="@color/grey_text"
-        android:textSize="35sp" />
-
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        tools:text="Recipes with"/>
 
     <HorizontalScrollView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
         android:fillViewport="true">
@@ -51,9 +57,10 @@
                     android:id="@+id/btn_diet_none"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_margin="10dp"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginHorizontal="24dp"
                     android:background="@drawable/button_shape"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/diet_none"
                     app:tint="@color/grey_text" />
@@ -78,7 +85,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/button_shape"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/diet_vegetarian"
                     app:tint="@color/grey_text" />
@@ -102,7 +109,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/button_shape"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/diet_vegan"
                     app:tint="@color/grey_text" />
@@ -126,7 +133,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/button_shape"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/diet_keto"
                     app:tint="@color/grey_text" />
@@ -150,7 +157,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/button_shape"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/diet_pescatarian"
                     app:tint="@color/grey_text" />
@@ -174,7 +181,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/button_shape"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/diet_gluten"
                     app:tint="@color/grey_text" />
@@ -198,7 +205,7 @@
                     android:layout_height="50dp"
                     android:layout_margin="10dp"
                     android:background="@drawable/button_shape"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/diet_fodmap"
                     app:tint="@color/grey_text" />
@@ -226,7 +233,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

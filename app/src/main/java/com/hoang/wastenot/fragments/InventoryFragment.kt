@@ -1,27 +1,25 @@
 package com.hoang.wastenot.fragments
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.view.Window
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hoang.wastenot.R
 import com.hoang.wastenot.adapters.FoodInventoryAdapter
+import com.hoang.wastenot.adapters.FoodsExpiringTodayAdapter
 import com.hoang.wastenot.databinding.FragmentInventoryBinding
 import com.hoang.wastenot.models.Food
 import com.hoang.wastenot.models.User
 import com.hoang.wastenot.repositories.UserRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import java.util.*
 
 
 class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
@@ -32,6 +30,9 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
 
     private val foodsInventoryAdapter: FoodInventoryAdapter
         get() = binding.rvFoodsInventory.adapter as FoodInventoryAdapter
+
+    private val foodsExpiringTodayAdapter: FoodsExpiringTodayAdapter
+        get() = binding.rvFoodsExpiringToday.adapter as FoodsExpiringTodayAdapter
 
     private val rotateOpen: Animation by lazy {
         AnimationUtils.loadAnimation(
@@ -84,8 +85,8 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
 
     private fun setInitialisation() {
         binding.rvFoodsInventory.apply {
-
-            layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
+//            layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = FoodInventoryAdapter().apply {
 
                 onItemClicked = {
@@ -99,8 +100,21 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
 
             }
         }
-    }
 
+        binding.rvFoodsExpiringToday.apply {
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = FoodsExpiringTodayAdapter().apply {
+                onItemClicked = {
+                    val bundle = Bundle()
+                    bundle.putParcelable("Food", it)
+                    findNavController().navigate(
+                        R.id.action_inventoryFragment_to_foodDetailFragment,
+                        bundle
+                    )
+                }
+            }
+        }
+    }
 
 
     private fun setOnAddBtnClicked(view: View) {
@@ -160,16 +174,32 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
     }
 
     private fun setUserData(currentUser: User) {
-        binding.tvHello.text = "Hello ${currentUser.displayName}!"
+        binding.tvHello.text = "Hey,"
+        binding.tvTitleInventory.text = "${currentUser.displayName}!"
+        val now = com.google.firebase.Timestamp.now()
+
 
         Firebase.firestore.collection("foods")
             .whereEqualTo("ownerEmail", currentUser.email)
+            .whereGreaterThan("expirationDate", now)
             .addSnapshotListener { documents, e ->
                 documents?.map {
                     it.toObject(Food::class.java).apply {
                         id = it.id
                     }
                 }?.let { foodsInventoryAdapter.setData(it) }
+            }
+
+
+        Firebase.firestore.collection("foods")
+            .whereEqualTo("ownerEmail", currentUser.email)
+            .whereLessThanOrEqualTo("expirationDate", now)
+            .addSnapshotListener { documents, e ->
+                documents?.map {
+                    it.toObject(Food::class.java).apply {
+                        id = it.id
+                    }
+                }?.let { foodsExpiringTodayAdapter.setData(it) }
             }
     }
 

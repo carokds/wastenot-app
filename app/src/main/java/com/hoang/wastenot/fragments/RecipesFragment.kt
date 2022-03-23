@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
@@ -138,6 +139,14 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
             Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
         }
 
+       setStatusBarAppearance()
+    }
+
+    private fun setStatusBarAppearance() {
+        val window = activity?.window
+        window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window?.statusBarColor = resources.getColor(R.color.green)
     }
 
 }
