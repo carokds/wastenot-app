@@ -13,15 +13,10 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -34,15 +29,12 @@ import com.hoang.wastenot.repositories.UserRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.io.IOException
-import java.time.Instant.now
 import java.util.*
 
 class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
     private lateinit var alarmManager: AlarmManager
-    private lateinit var alarmIntent: PendingIntent
-    private lateinit var picker: MaterialTimePicker
-    private lateinit var calendar: Calendar
+    //private lateinit var calendar: Calendar
 
     private lateinit var binding: FragmentAddBinding
     private val userRepository: UserRepository by inject()
@@ -73,14 +65,13 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                 .navigate(R.id.action_addFragment_to_barcodeScannerFragment)
         }
 
+        //createNotificationChannel()
         setOnUploadPictureBtnClicked()
         readIngredients()
         setOnSaveButtonClicked()
         setOnDatePickerClicked(view)
 
     }
-
-
 
     private fun readIngredients() {
         var rows = mutableListOf<String>()
@@ -119,6 +110,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                 .addOnPositiveButtonClickListener {
                     expDate = Date(it)
                 }
+
         }
     }
 
@@ -196,47 +188,57 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                         "Successful Add Message",
                         "DocumentSnapshot added with ID: ${foodRef.id}"
                     )
+                    setAlarm()
                 }
                 .addOnFailureListener { e ->
                     Log.w("Failure Add Message", "Error adding document", e)
                 }
-
         }
-
-        setTime()
-
     }
 
 
-    private fun setTime() {
-        picker = MaterialTimePicker.Builder()
-            .setTimeFormat(TimeFormat.CLOCK_24H)
-            .setHour(12)
-            .setMinute(0)
-            .setTitleText("Select Time")
-            .build()
-        picker.show(parentFragmentManager, "yeet")
-        picker.addOnPositiveButtonClickListener {
-            calendar = Calendar.getInstance()
-            calendar[Calendar.SECOND] += 15
-        }
-        setAlarm()
+    private fun setTime(time: Date) : Long {
+       val calendar =  Calendar.getInstance()
+        val alarmDateInMillis = time.time - 86400000.toLong()
+        val alarmDate = Date(alarmDateInMillis)
+        calendar.set(alarmDate.year, alarmDate.month, alarmDate.day, 9, 0, 0 )
+        return calendar.timeInMillis
     }
-
 
     private fun setAlarm() {
-        alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
         val intent = Intent(context, Notifications::class.java)
-        alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            notificationId,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
 
+        alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val time = expDate?.let { setTime(it) }
+        time
 
-        alarmManager.set(
-            AlarmManager.ELAPSED_REALTIME,
-            calendar.timeInMillis,
-            alarmIntent,
+        alarmManager.setExact(
+            AlarmManager.RTC_WAKEUP,
+            time!!,
+            pendingIntent,
+        )
 
-
-            )
+        Toast.makeText(context, "Alarm set to ${time}", Toast.LENGTH_LONG).show()
     }
+
+   /* private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Notification Channel"
+            val description = "channel description"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance)
+            channel.description = description
+            (requireContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(
+                channel
+            )
+        }
+    }*/
 
 }

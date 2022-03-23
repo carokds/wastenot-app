@@ -1,7 +1,5 @@
 package com.hoang.wastenot.fragments
 
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hoang.wastenot.R
@@ -22,7 +19,6 @@ import com.hoang.wastenot.models.User
 import com.hoang.wastenot.repositories.UserRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import java.util.*
 
 class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
 
@@ -102,9 +98,7 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
         }
 
         firstCheckOfUser()
-
-        setOnAddBtnClicked(view)
-
+        view?.let { setOnAddBtnClicked(it) }
         setOnLogoutBtnClicked()
 
     }
