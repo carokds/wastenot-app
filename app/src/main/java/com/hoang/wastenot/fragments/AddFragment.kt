@@ -53,11 +53,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
         }
 
-        binding.btnScan.setOnClickListener {
-            Navigation.findNavController(view)
-                .navigate(R.id.action_addFragment_to_barcodeScannerFragment)
-        }
-
         setOnUploadPictureBtnClicked()
         readIngredients()
         setOnSaveButtonClicked()
@@ -93,7 +88,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                 .setValidator(DateValidatorPointForward.now())
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Select date")
+                .setTitleText("Pick a date")
                 .setCalendarConstraints(constraintsBuilder.build())
                 .build()
 
@@ -103,6 +98,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             datePicker
                 .addOnPositiveButtonClickListener {
                     expDate = Date(it)
+                    binding.etDate.hint = expDate.toString()
                 }
         }
     }
