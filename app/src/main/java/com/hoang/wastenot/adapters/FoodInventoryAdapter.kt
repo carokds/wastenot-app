@@ -36,7 +36,7 @@ class FoodInventoryAdapter() : RecyclerView.Adapter<FoodInventoryAdapter.FoodsVi
         holder.foodName.text = currentData.name
 
         val expDate =
-            "Exp: ${currentData.expirationDate.toDate().date}-${currentData.expirationDate.toDate().month + 1}-${currentData.expirationDate.toDate().year - 100}"
+            "Exp: ${currentData.expirationDate.toDate().date}/${currentData.expirationDate.toDate().month + 1}/${currentData.expirationDate.toDate().year - 100}"
         holder.foodExpDate.text = expDate
         holder.itemView.setOnClickListener { onItemClicked(currentData) }
     }
