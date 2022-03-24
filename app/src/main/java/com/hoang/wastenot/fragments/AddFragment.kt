@@ -123,8 +123,8 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             datePicker
                 .addOnPositiveButtonClickListener {
                     expDate = Date(it)
-                    binding.etDate.hint =
-                        "${expDate!!.date}-${expDate!!.month + 1}-${expDate!!.year - 100}"
+                    binding.etDate.setText(
+                        "${expDate!!.date}-${expDate!!.month + 1}-${expDate!!.year - 100}")
                     setTime(it)
 
                 }
