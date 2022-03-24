@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 
 class RecipeRepository {
 
-    val API_KEY = BuildConfig.SPOONACULAR_API_KEY
+    val API_KEY = BuildConfig.SPOONACULAR_KEY
 
     suspend fun getRecipes(ingredient: String, diet: String): RecipeRootResponse? {
         val response =
