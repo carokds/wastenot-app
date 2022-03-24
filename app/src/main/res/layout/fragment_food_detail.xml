@@ -64,6 +64,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
         android:elevation="10dp"
+        android:textColor="@color/grey_text"
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/tv_product_detail_category"
         tools:text="Expiration Date:" />
@@ -87,7 +88,7 @@
         android:elevation="10dp"
         android:text="💡 FOOD WASTE FACT:"
         android:textColor="@color/grey_text"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/view_line" />
 
@@ -155,7 +156,7 @@
         android:layout_height="wrap_content"
         android:elevation="10dp"
         android:textColor="@color/grey_text"
-        android:textSize="15dp"
+        android:textSize="18sp"
         android:layout_marginTop="10dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"

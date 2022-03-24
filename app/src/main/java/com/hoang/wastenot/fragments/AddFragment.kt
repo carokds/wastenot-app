@@ -2,7 +2,7 @@ package com.hoang.wastenot.fragments
 
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.content.Context
+import android.content.Context.*
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -72,6 +71,12 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         setOnSaveButtonClicked()
         setOnDatePickerClicked(view)
         setStatusBarAppearance()
+        onClickAddFragmentView(view)
+    }
+
+    private fun onClickAddFragmentView(v: View?) {
+        val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(v!!.windowToken, 0)
     }
 
     private fun setStatusBarAppearance() {
@@ -107,12 +112,13 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
         ArrayAdapter(requireContext(), R.layout.item_category, categories).also { adapter ->
             textView.setAdapter(adapter)
-            textView.doOnTextChanged{ inputText, _, _, _ ->
-            if (categories.contains("${textView.text}")) {
-                textView.error = null
-            } else {
-                textView.error = "Choose a category from the list"
-            }}
+            textView.doOnTextChanged { inputText, _, _, _ ->
+                if (categories.contains("${textView.text}")) {
+                    textView.error = null
+                } else {
+                    textView.error = "Choose a category from the list"
+                }
+            }
         }
 
     }
@@ -248,7 +254,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager = context?.getSystemService(ALARM_SERVICE) as AlarmManager
 
         alarmManager.setExact(
             AlarmManager.RTC_WAKEUP,
@@ -258,7 +264,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
         Toast.makeText(context, "Alarm set to ${calendar.time}", Toast.LENGTH_LONG).show()
     }
-
 
 
     /* private fun createNotificationChannel() {

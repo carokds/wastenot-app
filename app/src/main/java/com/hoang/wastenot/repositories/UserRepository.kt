@@ -39,6 +39,7 @@ class UserRepository {
         val signInIntent = AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)
+            .setLogo(R.drawable.wn_logo_white)
             .setTheme(R.style.Theme_WasteNot)
             .build()
 
