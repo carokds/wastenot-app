@@ -11,8 +11,8 @@ import androidx.navigation.Navigation
 import com.hoang.wastenot.R
 import com.hoang.wastenot.databinding.FragmentRecipeDetailBinding
 import com.hoang.wastenot.viewmodels.RecipeViewModel
-import java.util.*
 import android.os.Handler;
+import android.view.WindowManager
 
 
 class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
@@ -25,8 +25,7 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentRecipeDetailBinding.bind(view)
-        binding.progressBar.visibility = View.VISIBLE
-        binding.cvWebview.visibility = View.GONE
+        binding.loadingAnimation.visibility = View.VISIBLE
         val handler = Handler(Looper.getMainLooper())
 
 
@@ -49,8 +48,7 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
                 it.sourceUrl?.let { it1 -> binding.webView.loadUrl(it1) }
             }
             handler.postDelayed({
-                binding.progressBar.visibility = View.GONE
-                binding.cvWebview.visibility = View.VISIBLE
+                binding.loadingAnimation.visibility = View.GONE
             }, 2000)
         }
 
@@ -63,6 +61,17 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
         binding.btnHomeRecipedetailfragment.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
         }
-
+        setStatusBarAppearance()
     }
+
+    private fun setStatusBarAppearance() {
+        // To show content behind status and navigation bar
+        val window = activity?.window
+        window?.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+        )
+    }
+
+
 }

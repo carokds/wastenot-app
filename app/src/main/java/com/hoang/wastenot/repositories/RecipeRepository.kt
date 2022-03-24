@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 
 class RecipeRepository {
 
-
+val API_KEY = "bce7f13a45eb414bb1956295ee6b859d"
 
     suspend fun getRecipes(ingredient: String, diet: String): RecipeRootResponse? {
         val response =
@@ -20,7 +20,7 @@ class RecipeRepository {
                 10,
                 "min-missing-ingredients",
                 diet,
-                "35ffd0936a0b48209553394c38c0b8bd"
+                API_KEY
             ).execute()
         if (response.isSuccessful) {
             return response.body()
@@ -32,7 +32,7 @@ class RecipeRepository {
 
     suspend fun getRecipeUrl(recipeId: Int): RecipeDetailResponse? {
         val response =
-            recipeService.getRecipeUrl(recipeId, false, "35ffd0936a0b48209553394c38c0b8bd")
+            recipeService.getRecipeUrl(recipeId, false, API_KEY)
                 .execute()
         if (response.isSuccessful) {
             return response.body()

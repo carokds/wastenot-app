@@ -1,8 +1,8 @@
 package com.hoang.wastenot.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
@@ -13,12 +13,14 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.hoang.wastenot.R
 import com.hoang.wastenot.adapters.FoodInventoryAdapter
+import com.hoang.wastenot.adapters.FoodsExpiringTodayAdapter
 import com.hoang.wastenot.databinding.FragmentInventoryBinding
 import com.hoang.wastenot.models.Food
 import com.hoang.wastenot.models.User
 import com.hoang.wastenot.repositories.UserRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+
 
 class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
 
@@ -28,6 +30,9 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
 
     private val foodsInventoryAdapter: FoodInventoryAdapter
         get() = binding.rvFoodsInventory.adapter as FoodInventoryAdapter
+
+    private val foodsExpiringTodayAdapter: FoodsExpiringTodayAdapter
+        get() = binding.rvFoodsExpiringToday.adapter as FoodsExpiringTodayAdapter
 
     private val rotateOpen: Animation by lazy {
         AnimationUtils.loadAnimation(
@@ -57,6 +62,7 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding = FragmentInventoryBinding.bind(view)
 
         setInitialisation()
@@ -67,11 +73,20 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
 
         setOnLogoutBtnClicked()
 
+        setStatusBarAppearance()
+    }
+
+    private fun setStatusBarAppearance() {
+        val window = activity?.window
+        window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window?.statusBarColor = resources.getColor(R.color.green_2)
     }
 
     private fun setInitialisation() {
-        binding.rvFoodsInventory.apply {
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+
+//            layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
+           layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = FoodInventoryAdapter().apply {
                 onItemClicked = {
                     val bundle = Bundle()
@@ -82,16 +97,20 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
                     )
                 }
 
-                onDeleteBtnClicked = { food ->
-                    Firebase.firestore.collection("foods").document(food.id)
-                        .delete()
-                        .addOnSuccessListener {
-                            Log.d(
-                                "x",
-                                "DocumentSnapshot successfully deleted!"
-                            )
-                        }
-                        .addOnFailureListener { e -> Log.w("x", "Error deleting document", e) }
+
+            }
+        }
+
+        binding.rvFoodsExpiringToday.apply {
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = FoodsExpiringTodayAdapter().apply {
+                onItemClicked = {
+                    val bundle = Bundle()
+                    bundle.putParcelable("Food", it)
+                    findNavController().navigate(
+                        R.id.action_inventoryFragment_to_foodDetailFragment,
+                        bundle
+                    )
                 }
 
             }
@@ -101,7 +120,6 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
         view?.let { setOnAddBtnClicked(it) }
         setOnLogoutBtnClicked()
 
-    }
 
     private fun setOnAddBtnClicked(view: View) {
         binding.btnAdd.setOnClickListener {
@@ -112,6 +130,8 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
         }
 
         binding.btnAddByScan.setOnClickListener {
+            Navigation.findNavController(view)
+                .navigate(R.id.action_inventoryFragment_to_barcodeScannerFragment)
 
         }
 
@@ -121,6 +141,7 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
         }
 
     }
+
 
     private fun setClickable(clicked: Boolean) {
         binding.btnAddByScan.isClickable = !clicked
@@ -161,16 +182,31 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
     }
 
     private fun setUserData(currentUser: User) {
-        binding.tvHello.text = "Hello ${currentUser.displayName}!"
+        binding.tvHello.text = "Hey,"
+        binding.tvTitleInventory.text = "${currentUser.displayName}!"
+        val now = com.google.firebase.Timestamp.now()
+
 
         Firebase.firestore.collection("foods")
             .whereEqualTo("ownerEmail", currentUser.email)
+            .whereGreaterThan("expirationDate", now)
             .addSnapshotListener { documents, e ->
                 documents?.map {
                     it.toObject(Food::class.java).apply {
                         id = it.id
                     }
                 }?.let { foodsInventoryAdapter.setData(it) }
+            }
+
+        Firebase.firestore.collection("foods")
+            .whereEqualTo("ownerEmail", currentUser.email)
+            .whereLessThanOrEqualTo("expirationDate", now)
+            .addSnapshotListener { documents, e ->
+                documents?.map {
+                    it.toObject(Food::class.java).apply {
+                        id = it.id
+                    }
+                }?.let { foodsExpiringTodayAdapter.setData(it) }
             }
     }
 

@@ -8,12 +8,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import coil.load
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -41,8 +44,10 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
     private val userRepository: UserRepository by inject()
     private val TAG = "AddFragment"
     private var picUrl: String? = null
+    private var foodName: String? = null
     private var expDate: Date? = null
     private var category: String? = null
+
     private val launchCameraIntentLauncher =
         registerForActivityResult(ActivityResultContracts.OpenDocument()) { fileUri ->
             if (fileUri != null) {
@@ -57,21 +62,29 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
         binding = FragmentAddBinding.bind(view)
 
-        binding.btnHomeAddfragment.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
-        }
+        setOnHomeBtnClicked(view)
 
-        binding.btnScan.setOnClickListener {
-            Navigation.findNavController(view)
-                .navigate(R.id.action_addFragment_to_barcodeScannerFragment)
-        }
-
-        //createNotificationChannel()
         setOnUploadPictureBtnClicked()
         readIngredients()
         setOnSaveButtonClicked()
         setOnDatePickerClicked(view)
+        setStatusBarAppearance()
+    }
 
+    private fun setStatusBarAppearance() {
+        // To show content behind status and navigation bar
+        val window = activity?.window
+        window?.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+        )
+    }
+
+
+    private fun setOnHomeBtnClicked(view: View) {
+        binding.btnHomeAddfragment.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
+        }
     }
 
     private fun readIngredients() {
@@ -100,7 +113,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                 .setValidator(DateValidatorPointForward.now())
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Select date")
+                .setTitleText("Pick a date")
                 .setCalendarConstraints(constraintsBuilder.build())
                 .build()
 
@@ -110,7 +123,10 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             datePicker
                 .addOnPositiveButtonClickListener {
                     expDate = Date(it)
+                    binding.etDate.hint =
+                        "${expDate!!.date}-${expDate!!.month + 1}-${expDate!!.year - 100}"
                     setTime(it)
+
                 }
 
         }
@@ -139,11 +155,14 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
                 // Request the public download URL
                 photoRef.downloadUrl
+
             }.addOnSuccessListener { downloadUri ->
                 // Upload succeeded
                 Log.d(TAG, "uploadFromUri: getDownloadUri success: $downloadUri")
 
                 picUrl = downloadUri.toString()
+                binding.ivSelectedPic.load(picUrl)
+                binding.ivAddImage.load(picUrl)
 
             }.addOnFailureListener { exception ->
                 // Upload failed
@@ -158,21 +177,17 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         binding.btnSaveFood.setOnClickListener {
 
             if (picUrl == null) {
-                Toast.makeText(activity, "You haven't selected a picture yet", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(activity, "You haven't selected a picture yet", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             } else if (expDate == null) {
-                Toast.makeText(
-                    activity,
-                    "You haven't selected an expiration date",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(activity, "You haven't selected an expiration date", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             val currentUser = userRepository.getCurrentUser() ?: return@setOnClickListener
             val foodName = binding.etFoodName.text.toString()
             category = binding.autocompleteCategory.text.toString()
+
             val foodRef = Firebase.firestore.collection("foods").document()
 
             val food = Food(
@@ -195,6 +210,14 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                 .addOnFailureListener { e ->
                     Log.w("Failure Add Message", "Error adding document", e)
                 }
+
+            findNavController().navigate(R.id.inventoryFragment)
+
+        }
+    }
+
+}
+
         }
     }
 
@@ -239,3 +262,4 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
          }
      }*/
 }
+
