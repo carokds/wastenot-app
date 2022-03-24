@@ -143,27 +143,25 @@
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/item_food_copy" />
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_add"
+        android:id="@+id/btn_add_manually"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="#35926c"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_add"
-        app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/white" />
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/green_2"
+        android:src="@drawable/ic_text_fields"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/btn_add_by_scan"
+        app:layout_constraintStart_toStartOf="@id/btn_add_by_scan"
+        app:tint="@color/white"
+        tools:visibility="visible" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_add_by_scan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="#35926c"
+        android:backgroundTint="@color/green_2"
         android:src="@drawable/ic_scanner"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/btn_add"
@@ -172,17 +170,18 @@
         tools:visibility="visible" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_add_manually"
+        android:id="@+id/btn_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="#35926c"
-        android:src="@drawable/ic_text_fields"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/btn_add_by_scan"
-        app:layout_constraintStart_toStartOf="@id/btn_add_by_scan"
-        app:tint="@color/white"
-        tools:visibility="visible" />
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/green_2"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_add"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@color/white" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

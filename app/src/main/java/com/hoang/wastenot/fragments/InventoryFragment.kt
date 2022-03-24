@@ -80,7 +80,7 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
         val window = activity?.window
         window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window?.statusBarColor = resources.getColor(R.color.green)
+        window?.statusBarColor = resources.getColor(R.color.green_2)
     }
 
     private fun setInitialisation() {
@@ -192,7 +192,6 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
                     }
                 }?.let { foodsInventoryAdapter.setData(it) }
             }
-
 
         Firebase.firestore.collection("foods")
             .whereEqualTo("ownerEmail", currentUser.email)

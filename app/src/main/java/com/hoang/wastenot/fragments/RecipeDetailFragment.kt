@@ -61,7 +61,16 @@ class RecipeDetailFragment : Fragment(R.layout.fragment_recipe_detail) {
         binding.btnHomeRecipedetailfragment.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
         }
+        setStatusBarAppearance()
+    }
 
+    private fun setStatusBarAppearance() {
+        // To show content behind status and navigation bar
+        val window = activity?.window
+        window?.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+        )
     }
 
 
