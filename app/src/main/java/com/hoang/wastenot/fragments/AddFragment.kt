@@ -128,7 +128,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                     setTime(it)
 
                 }
-
         }
     }
 
@@ -177,10 +176,15 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         binding.btnSaveFood.setOnClickListener {
 
             if (picUrl == null) {
-                Toast.makeText(activity, "You haven't selected a picture yet", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "You haven't selected a picture yet", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             } else if (expDate == null) {
-                Toast.makeText(activity, "You haven't selected an expiration date", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    activity,
+                    "You haven't selected an expiration date",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
             }
 
@@ -216,16 +220,11 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         }
     }
 
-}
-
-        }
-    }
-
 
     private fun setTime(time: Long) {
         calendar.timeInMillis = time - 86400000.toLong()
-        calendar.set(HOUR_OF_DAY, 9)
-        calendar.set(MINUTE, 0)
+        calendar.set(HOUR_OF_DAY, 12)
+        calendar.set(MINUTE, 55)
         calendar.set(SECOND, 0)
     }
 
@@ -262,4 +261,5 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
          }
      }*/
 }
+
 

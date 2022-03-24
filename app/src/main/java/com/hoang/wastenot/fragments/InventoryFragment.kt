@@ -80,14 +80,15 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
         val window = activity?.window
         window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window?.statusBarColor = resources.getColor(R.color.green_2)
+        window?.statusBarColor = resources.getColor(R.color.green)
     }
 
     private fun setInitialisation() {
-
+        binding.rvFoodsInventory.apply {
 //            layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
-           layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = FoodInventoryAdapter().apply {
+
                 onItemClicked = {
                     val bundle = Bundle()
                     bundle.putParcelable("Food", it)
@@ -96,7 +97,6 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
                         bundle
                     )
                 }
-
 
             }
         }
@@ -112,13 +112,9 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
                         bundle
                     )
                 }
-
             }
         }
-
-        firstCheckOfUser()
-        view?.let { setOnAddBtnClicked(it) }
-        setOnLogoutBtnClicked()
+    }
 
 
     private fun setOnAddBtnClicked(view: View) {
@@ -139,7 +135,6 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
             Navigation.findNavController(view)
                 .navigate(R.id.action_inventoryFragment_to_addFragment)
         }
-
     }
 
 
@@ -198,6 +193,7 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
                 }?.let { foodsInventoryAdapter.setData(it) }
             }
 
+
         Firebase.firestore.collection("foods")
             .whereEqualTo("ownerEmail", currentUser.email)
             .whereLessThanOrEqualTo("expirationDate", now)
@@ -226,5 +222,13 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
             }
         }
     }
-
 }
+
+
+
+
+
+
+
+
+
