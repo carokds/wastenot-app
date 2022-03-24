@@ -9,10 +9,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -256,6 +258,8 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
         Toast.makeText(context, "Alarm set to ${calendar.time}", Toast.LENGTH_LONG).show()
     }
+
+
 
     /* private fun createNotificationChannel() {
          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
