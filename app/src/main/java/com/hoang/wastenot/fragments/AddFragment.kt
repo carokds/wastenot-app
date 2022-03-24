@@ -216,12 +216,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         }
     }
 
-}
-
-        }
-    }
-
-
     private fun setTime(time: Long) {
         calendar.timeInMillis = time - 86400000.toLong()
         calendar.set(HOUR_OF_DAY, 9)
