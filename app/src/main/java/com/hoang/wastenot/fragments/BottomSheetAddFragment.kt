@@ -67,6 +67,7 @@ class BottomSheetAddFragment : BottomSheetDialogFragment(), KoinComponent {
             dismiss()
             findNavController().navigate(R.id.addFragment)
         }
+
         binding.extraSpace.minimumHeight = Resources.getSystem().displayMetrics.heightPixels
 
         viewModel.product.observe(viewLifecycleOwner) {
