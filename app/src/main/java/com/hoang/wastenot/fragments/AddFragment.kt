@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -98,11 +99,18 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         rows.size
 
         val textView = (binding.autocompleteCategory) as AutoCompleteTextView
+        textView.setError(null)
 
         val categories: MutableList<String> = rows
 
         ArrayAdapter(requireContext(), R.layout.item_category, categories).also { adapter ->
             textView.setAdapter(adapter)
+            textView.doOnTextChanged{ inputText, _, _, _ ->
+            if (categories.contains("${textView.text}")) {
+                textView.error = null
+            } else {
+                textView.error = "Choose a category from the list"
+            }}
         }
 
     }
@@ -124,7 +132,8 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                 .addOnPositiveButtonClickListener {
                     expDate = Date(it)
                     binding.etDate.setText(
-                        "${expDate!!.date}-${expDate!!.month + 1}-${expDate!!.year - 100}")
+                        "${expDate!!.date}-${expDate!!.month + 1}-${expDate!!.year - 100}"
+                    )
                     setTime(it)
 
                 }
@@ -177,10 +186,15 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         binding.btnSaveFood.setOnClickListener {
 
             if (picUrl == null) {
-                Toast.makeText(activity, "You haven't selected a picture yet", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "You haven't selected a picture yet", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             } else if (expDate == null) {
-                Toast.makeText(activity, "You haven't selected an expiration date", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    activity,
+                    "You haven't selected an expiration date",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
             }
 
