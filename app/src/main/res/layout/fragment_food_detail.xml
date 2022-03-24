@@ -152,15 +152,16 @@
     <TextView
         android:id="@+id/tv_foodFacts"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:elevation="10dp"
         android:textColor="@color/grey_text"
-        android:textSize="18dp"
+        android:textSize="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_fact_title"
-        tools:text="ldnloncfklsdnklv nslkfvnskdnvps" />
+        tools:text="ldnloncfklsdnklv nslkfvnskdnvps"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
