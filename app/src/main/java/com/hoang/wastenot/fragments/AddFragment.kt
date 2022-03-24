@@ -30,11 +30,12 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.io.IOException
 import java.util.*
+import java.util.Calendar.*
 
 class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
     private lateinit var alarmManager: AlarmManager
-    //private lateinit var calendar: Calendar
+    private var calendar: Calendar = Calendar.getInstance(Locale.getDefault())
 
     private lateinit var binding: FragmentAddBinding
     private val userRepository: UserRepository by inject()
@@ -109,6 +110,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             datePicker
                 .addOnPositiveButtonClickListener {
                     expDate = Date(it)
+                    setTime(it)
                 }
 
         }
@@ -197,16 +199,14 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
     }
 
 
-    private fun setTime(time: Date) : Long {
-       val calendar =  Calendar.getInstance()
-        val alarmDateInMillis = time.time - 86400000.toLong()
-        val alarmDate = Date(alarmDateInMillis)
-        calendar.set(alarmDate.year, alarmDate.month, alarmDate.day, 9, 0, 0 )
-        return calendar.timeInMillis
+    private fun setTime(time: Long) {
+        calendar.timeInMillis = time - 86400000.toLong()
+        calendar.set(HOUR_OF_DAY, 9)
+        calendar.set(MINUTE, 0)
+        calendar.set(SECOND, 0)
     }
 
     private fun setAlarm() {
-
         val intent = Intent(context, Notifications::class.java)
         val pendingIntent = PendingIntent.getBroadcast(
             context,
@@ -216,29 +216,26 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         )
 
         alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val time = expDate?.let { setTime(it) }
-        time
 
         alarmManager.setExact(
             AlarmManager.RTC_WAKEUP,
-            time!!,
-            pendingIntent,
+            calendar.timeInMillis,
+            pendingIntent
         )
 
-        Toast.makeText(context, "Alarm set to ${time}", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Alarm set to ${calendar.time}", Toast.LENGTH_LONG).show()
     }
 
-   /* private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Notification Channel"
-            val description = "channel description"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance)
-            channel.description = description
-            (requireContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(
-                channel
-            )
-        }
-    }*/
-
+    /* private fun createNotificationChannel() {
+         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+             val name = "Notification Channel"
+             val description = "channel description"
+             val importance = NotificationManager.IMPORTANCE_DEFAULT
+             val channel = NotificationChannel(CHANNEL_ID, name, importance)
+             channel.description = description
+             (requireContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(
+                 channel
+             )
+         }
+     }*/
 }
