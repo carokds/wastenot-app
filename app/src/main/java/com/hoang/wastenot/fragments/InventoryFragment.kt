@@ -177,8 +177,8 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
     }
 
     private fun setUserData(currentUser: User) {
-        binding.tvHello.text = "Hey,"
-        binding.tvTitleInventory.text = "${currentUser.displayName}!"
+//        binding.tvHello.text = "Hey,"
+        binding.tvUsername.text = "Hello ${currentUser.displayName}!"
         val now = com.google.firebase.Timestamp.now()
 
 
