@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_7"
+    android:background="@drawable/background_8"
     tools:context=".fragments.FoodDetailFragment">
 
 
@@ -12,7 +12,7 @@
         android:id="@+id/btn_home_fooddetailfragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/shape"
         android:padding="2dp"
@@ -97,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/green"
+        android:backgroundTint="@color/green_2"
         android:gravity="center"
         android:text="@string/recipes"
         android:textColor="@color/white"
@@ -134,7 +134,8 @@
             android:id="@+id/iv_food_detail"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            tools:src="@drawable/ic_launcher_background" />
+            tools:src="@drawable/ic_launcher_background"
+            android:scaleType="centerCrop"/>
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

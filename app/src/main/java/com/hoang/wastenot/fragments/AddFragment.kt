@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
@@ -35,6 +36,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
     private val userRepository: UserRepository by inject()
     private val TAG = "AddFragment"
     private var picUrl: String? = null
+    private var foodName: String? = null
     private var expDate: Date? = null
     private var category: String? = null
 
@@ -57,7 +59,16 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         readIngredients()
         setOnSaveButtonClicked()
         setOnDatePickerClicked(view)
+        setStatusBarAppearance()
+    }
 
+    private fun setStatusBarAppearance() {
+        // To show content behind status and navigation bar
+        val window = activity?.window
+        window?.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+        )
     }
 
     private fun setOnHomeBtnClicked(view: View) {
@@ -154,15 +165,10 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         binding.btnSaveFood.setOnClickListener {
 
             if (picUrl == null) {
-                Toast.makeText(activity, "You haven't selected a picture yet", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(activity, "You haven't selected a picture yet", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             } else if (expDate == null) {
-                Toast.makeText(
-                    activity,
-                    "You haven't selected an expiration date",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(activity, "You haven't selected an expiration date", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
