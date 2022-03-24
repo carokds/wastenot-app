@@ -19,6 +19,7 @@ class FoodDetailFragment : Fragment(R.layout.fragment_food_detail) {
     private lateinit var binding: FragmentFoodDetailBinding
     private var food: Food = Food()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -29,6 +30,10 @@ class FoodDetailFragment : Fragment(R.layout.fragment_food_detail) {
         retrieveFoodObject(view)
 
         setStatusBarAppearance()
+        val foodFacts = resources.getStringArray(R.array.facts)
+
+//        🔔  Expiring today💡
+        binding.tvFoodFacts.text = foodFacts.random()
     }
 
     private fun setStatusBarAppearance() {
