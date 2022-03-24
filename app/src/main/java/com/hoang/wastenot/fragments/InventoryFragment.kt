@@ -84,11 +84,10 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
     }
 
     private fun setInitialisation() {
-        binding.rvFoodsInventory.apply {
-//            layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-            adapter = FoodInventoryAdapter().apply {
 
+//            layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
+           layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            adapter = FoodInventoryAdapter().apply {
                 onItemClicked = {
                     val bundle = Bundle()
                     bundle.putParcelable("Food", it)
@@ -97,6 +96,7 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
                         bundle
                     )
                 }
+
 
             }
         }
@@ -112,9 +112,13 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
                         bundle
                     )
                 }
+
             }
         }
-    }
+
+        firstCheckOfUser()
+        view?.let { setOnAddBtnClicked(it) }
+        setOnLogoutBtnClicked()
 
 
     private fun setOnAddBtnClicked(view: View) {
@@ -135,6 +139,7 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
             Navigation.findNavController(view)
                 .navigate(R.id.action_inventoryFragment_to_addFragment)
         }
+
     }
 
 
@@ -221,4 +226,5 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
             }
         }
     }
+
 }

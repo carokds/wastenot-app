@@ -1,5 +1,9 @@
 package com.hoang.wastenot.fragments
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -29,8 +33,12 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.io.IOException
 import java.util.*
+import java.util.Calendar.*
 
 class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
+
+    private lateinit var alarmManager: AlarmManager
+    private var calendar: Calendar = Calendar.getInstance(Locale.getDefault())
 
     private lateinit var binding: FragmentAddBinding
     private val userRepository: UserRepository by inject()
@@ -55,6 +63,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         binding = FragmentAddBinding.bind(view)
 
         setOnHomeBtnClicked(view)
+
         setOnUploadPictureBtnClicked()
         readIngredients()
         setOnSaveButtonClicked()
@@ -71,12 +80,12 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         )
     }
 
+
     private fun setOnHomeBtnClicked(view: View) {
         binding.btnHomeAddfragment.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_global_inventoryFragment)
         }
     }
-
 
     private fun readIngredients() {
         var rows = mutableListOf<String>()
@@ -116,7 +125,10 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                     expDate = Date(it)
                     binding.etDate.hint =
                         "${expDate!!.date}-${expDate!!.month + 1}-${expDate!!.year - 100}"
+                    setTime(it)
+
                 }
+
         }
     }
 
@@ -193,6 +205,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                         "Successful Add Message",
                         "DocumentSnapshot added with ID: ${foodRef.id}"
                     )
+                    setAlarm()
                 }
                 .addOnFailureListener { e ->
                     Log.w("Failure Add Message", "Error adding document", e)
@@ -204,3 +217,49 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
     }
 
 }
+
+        }
+    }
+
+
+    private fun setTime(time: Long) {
+        calendar.timeInMillis = time - 86400000.toLong()
+        calendar.set(HOUR_OF_DAY, 9)
+        calendar.set(MINUTE, 0)
+        calendar.set(SECOND, 0)
+    }
+
+    private fun setAlarm() {
+        val intent = Intent(context, Notifications::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            notificationId,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        alarmManager.setExact(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            pendingIntent
+        )
+
+        Toast.makeText(context, "Alarm set to ${calendar.time}", Toast.LENGTH_LONG).show()
+    }
+
+    /* private fun createNotificationChannel() {
+         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+             val name = "Notification Channel"
+             val description = "channel description"
+             val importance = NotificationManager.IMPORTANCE_DEFAULT
+             val channel = NotificationChannel(CHANNEL_ID, name, importance)
+             channel.description = description
+             (requireContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(
+                 channel
+             )
+         }
+     }*/
+}
+

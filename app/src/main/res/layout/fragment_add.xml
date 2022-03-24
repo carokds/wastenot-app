@@ -164,8 +164,10 @@
         app:layout_constraintStart_toEndOf="@id/cardview_selected_img"
         app:layout_constraintTop_toTopOf="@id/cardview_selected_img" />
 
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btn_save_food"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
