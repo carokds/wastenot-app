@@ -235,6 +235,7 @@
         android:src="@drawable/walking_avocado"
         android:visibility="visible" />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
@@ -244,6 +245,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp" />
+
+    <ImageView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="visible"
+        android:src="@drawable/error_tomato"/>
 
 
 </LinearLayout>
