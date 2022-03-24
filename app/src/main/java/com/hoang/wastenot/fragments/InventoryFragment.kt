@@ -80,7 +80,7 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
         val window = activity?.window
         window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window?.statusBarColor = resources.getColor(R.color.green)
+        window?.statusBarColor = resources.getColor(R.color.green_2)
     }
 
     private fun setInitialisation() {
@@ -177,8 +177,8 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
     }
 
     private fun setUserData(currentUser: User) {
-        binding.tvHello.text = "Hey,"
-        binding.tvTitleInventory.text = "${currentUser.displayName}!"
+//        binding.tvHello.text = "Hey,"
+        binding.tvUsername.text = "Hello ${currentUser.displayName}!"
         val now = com.google.firebase.Timestamp.now()
 
 
@@ -223,3 +223,11 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
         }
     }
 }
+
+
+
+
+
+
+
+

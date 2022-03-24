@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hoang.wastenot">
 
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <uses-feature android:name="android.hardware.camera.any" />
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -19,7 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WasteNot"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        >
+      
+        <receiver android:name=".fragments.Notifications"
+            android:enabled="true" />
 
         <activity
             android:name=".SplashActivity"
@@ -31,9 +34,6 @@
             </intent-filter>
         </activity>
 
-        <receiver
-            android:name=".Notifications"
-            android:enabled="true" />
 
         <activity
             android:name=".MainActivity"
