@@ -14,7 +14,6 @@ class RecipeRepository {
 
     val API_KEY = BuildConfig.SPOONACULAR_KEY
 
-
     suspend fun getRecipes(ingredient: String, diet: String): RecipeRootResponse? {
         val response =
             recipeService.getRecipes(
