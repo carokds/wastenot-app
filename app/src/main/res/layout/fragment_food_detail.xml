@@ -12,8 +12,8 @@
         android:id="@+id/btn_home_fooddetailfragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/shape"
         android:padding="2dp"
         android:src="@drawable/ic_home"
@@ -79,17 +79,18 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_product_exp_date" />
 
     <TextView
-        android:id="@+id/tv_quantity"
+        android:id="@+id/tv_fact_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="40dp"
         android:elevation="10dp"
-        android:text="Quantity"
-        android:textColor="@color/black"
+        android:text="💡 FOOD WASTE FACT:"
+        android:textColor="@color/grey_text"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/view_line" />
+
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btn_use_me"
@@ -112,10 +113,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/pale_yellow"
+        android:backgroundTint="@color/orange"
         android:gravity="center"
         app:icon="@drawable/ic_delete"
-        app:iconTint="#2C2828"
+        app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -134,8 +135,33 @@
             android:id="@+id/iv_food_detail"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            tools:src="@drawable/ic_launcher_background"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            tools:src="@drawable/ic_launcher_background" />
     </com.google.android.material.card.MaterialCardView>
 
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/tv_foodFacts"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="match_parent"-->
+    <!--                tools:text="FACT ldnloncfklsdnklv nslkfvnskdnvps"-->
+    <!--                android:layout_margin="10dp"-->
+    <!--                android:gravity="center"-->
+    <!--                android:textColor="@color/grey_text"/>-->
+
+    <TextView
+        android:id="@+id/tv_foodFacts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:textColor="@color/grey_text"
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_fact_title"
+        tools:text="ldnloncfklsdnklv nslkfvnskdnvps"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

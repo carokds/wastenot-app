@@ -7,60 +7,70 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_8">
 
-<!--    <ProgressBar-->
-<!--        android:id="@+id/progressBar"-->
-<!--        style="?android:attr/progressBarStyle"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:visibility="visible"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:indeterminateTint="@color/black"-->
-<!--        />-->
+    <!--    <ProgressBar-->
+    <!--        android:id="@+id/progressBar"-->
+    <!--        style="?android:attr/progressBarStyle"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:visibility="visible"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:indeterminateTint="@color/black"-->
+    <!--        />-->
 
 
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".fragments.RecipeDetailFragment"
-    android:orientation="vertical">
-
-
-    <ImageButton
-        android:id="@+id/btn_home_recipedetailfragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/ic_home"
-        android:layout_gravity="right"
-        app:tint="@color/orange"
-        android:backgroundTint="@color/fui_transparent"/>
-
-    <com.google.android.material.card.MaterialCardView
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/cv_webview"
-        android:background="@color/white"
-        >
+        android:orientation="vertical"
+        tools:context=".fragments.RecipeDetailFragment">
 
-    <WebView android:id="@+id/webView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-       />
-        <pl.droidsonroids.gif.GifImageView
+
+        <!--        <ImageButton-->
+        <!--            android:id="@+id/btn_home_recipedetailfragment"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="right"-->
+        <!--            android:backgroundTint="@color/fui_transparent"-->
+        <!--            android:src="@drawable/ic_home"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:tint="@color/orange" />-->
+
+        <ImageButton
+            android:id="@+id/btn_home_recipedetailfragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/shape"
+            android:padding="2dp"
+            android:src="@drawable/ic_home"
+            app:tint="@color/white" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_webview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/walking_broccoli"
-            android:visibility="visible"
-            android:id="@+id/loading_animation"
-            />
-    </com.google.android.material.card.MaterialCardView>
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/loading_animation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/walking_broccoli"
+                android:visibility="visible" />
+        </com.google.android.material.card.MaterialCardView>
 
 
-</LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

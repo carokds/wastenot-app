@@ -1,5 +1,6 @@
 package com.hoang.wastenot.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -80,7 +81,7 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
         val window = activity?.window
         window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window?.statusBarColor = resources.getColor(R.color.green)
+        window?.statusBarColor = resources.getColor(R.color.green_2)
     }
 
     private fun setInitialisation() {
@@ -176,11 +177,10 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setUserData(currentUser: User) {
-        binding.tvHello.text = "Hey,"
-        binding.tvTitleInventory.text = "${currentUser.displayName}!"
+        binding.tvUsername.text = "Hello ${currentUser.displayName}!"
         val now = com.google.firebase.Timestamp.now()
-
 
         Firebase.firestore.collection("foods")
             .whereEqualTo("ownerEmail", currentUser.email)
@@ -192,7 +192,6 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
                     }
                 }?.let { foodsInventoryAdapter.setData(it) }
             }
-
 
         Firebase.firestore.collection("foods")
             .whereEqualTo("ownerEmail", currentUser.email)
@@ -223,7 +222,6 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
         }
     }
 }
-
 
 
 

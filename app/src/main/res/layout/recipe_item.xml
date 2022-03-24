@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="370dp"
         android:layout_height="wrap_content"
@@ -60,6 +61,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
