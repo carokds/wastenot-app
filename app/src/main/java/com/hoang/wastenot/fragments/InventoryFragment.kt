@@ -1,5 +1,6 @@
 package com.hoang.wastenot.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -84,10 +85,11 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
     }
 
     private fun setInitialisation() {
-
+        binding.rvFoodsInventory.apply {
 //            layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
-           layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = FoodInventoryAdapter().apply {
+
                 onItemClicked = {
                     val bundle = Bundle()
                     bundle.putParcelable("Food", it)
@@ -96,7 +98,6 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
                         bundle
                     )
                 }
-
 
             }
         }
@@ -112,13 +113,9 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
                         bundle
                     )
                 }
-
             }
         }
-
-        firstCheckOfUser()
-        view?.let { setOnAddBtnClicked(it) }
-        setOnLogoutBtnClicked()
+    }
 
 
     private fun setOnAddBtnClicked(view: View) {
@@ -139,7 +136,6 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
             Navigation.findNavController(view)
                 .navigate(R.id.action_inventoryFragment_to_addFragment)
         }
-
     }
 
 
@@ -181,11 +177,10 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setUserData(currentUser: User) {
-        binding.tvHello.text = "Hey,"
-        binding.tvTitleInventory.text = "${currentUser.displayName}!"
+        binding.tvUsername.text = "Hello ${currentUser.displayName}!"
         val now = com.google.firebase.Timestamp.now()
-
 
         Firebase.firestore.collection("foods")
             .whereEqualTo("ownerEmail", currentUser.email)
@@ -226,5 +221,12 @@ class InventoryFragment : Fragment(R.layout.fragment_inventory), KoinComponent {
             }
         }
     }
-
 }
+
+
+
+
+
+
+
+

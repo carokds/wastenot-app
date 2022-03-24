@@ -1,5 +1,6 @@
 package com.hoang.wastenot.adapters
 
+import android.service.voice.VoiceInteractionSession
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,7 +44,6 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.ListViewHolder>() {
 
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-
         val currentData: RecipeResponse = dataSet.get(position)
         holder.recipeTitle.text = currentData.title
         Picasso.get().load("${currentData.image}").into(holder.recipeImage)
@@ -56,5 +56,7 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.ListViewHolder>() {
     override fun getItemCount(): Int {
         return dataSet.size
     }
+
+
 
 }
