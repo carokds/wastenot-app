@@ -33,7 +33,7 @@ class FoodDetailFragment : Fragment(R.layout.fragment_food_detail) {
         val foodFacts = resources.getStringArray(R.array.facts)
 
 //        🔔  Expiring today💡
-        binding.tvFoodFacts.text = "\uD83D\uDCA1FOOD FACT: ${foodFacts.random()}"
+        binding.tvFoodFacts.text = foodFacts.random()
     }
 
     private fun setStatusBarAppearance() {
