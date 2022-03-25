@@ -269,18 +269,5 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         Toast.makeText(context, "Alarm set to ${calendar.time}", Toast.LENGTH_LONG).show()
     }
 
-
-    /* private fun createNotificationChannel() {
-         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-             val name = "Notification Channel"
-             val description = "channel description"
-             val importance = NotificationManager.IMPORTANCE_DEFAULT
-             val channel = NotificationChannel(CHANNEL_ID, name, importance)
-             channel.description = description
-             (requireContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(
-                 channel
-             )
-         }
-     }*/
 }
 
