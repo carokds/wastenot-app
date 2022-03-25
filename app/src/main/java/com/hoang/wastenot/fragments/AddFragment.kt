@@ -46,7 +46,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
     private val userRepository: UserRepository by inject()
     private val TAG = "AddFragment"
     private var picUrl: String? = null
-    private var foodName: String? = null
     private var expDate: Date? = null
     private var category: String? = null
 
@@ -67,10 +66,15 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         setOnHomeBtnClicked(view)
 
         setOnUploadPictureBtnClicked()
+
         readIngredients()
+
         setOnSaveButtonClicked()
+
         setOnDatePickerClicked(view)
+
         setStatusBarAppearance()
+        
         onClickAddFragmentView(view)
     }
 

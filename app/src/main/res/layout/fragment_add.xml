@@ -121,6 +121,7 @@
             android:hint="@string/pick_a_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/green_2"
             android:editable="false"
             app:layout_constraintTop_toBottomOf="@+id/tv_title_add" />
 
