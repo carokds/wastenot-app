@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
@@ -64,7 +63,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         binding = FragmentAddBinding.bind(view)
 
         setOnHomeBtnClicked(view)
-
         setOnUploadPictureBtnClicked()
 
         readIngredients()
@@ -149,7 +147,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                     setTime(it)
 
                 }
-
         }
     }
 
@@ -244,9 +241,9 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
     private fun setTime(time: Long) {
         calendar.timeInMillis = time - 86400000.toLong()
-        calendar.set(HOUR_OF_DAY, 9)
-        calendar.set(MINUTE, 0)
-        calendar.set(SECOND, 0)
+        calendar.set(HOUR_OF_DAY, 23)
+        calendar.set(MINUTE, 35)
+        calendar.set(SECOND, 30)
     }
 
     private fun setAlarm() {
@@ -265,9 +262,8 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             calendar.timeInMillis,
             pendingIntent
         )
-
-        Toast.makeText(context, "Alarm set to ${calendar.time}", Toast.LENGTH_LONG).show()
     }
 
 }
+
 
