@@ -1,9 +1,6 @@
 package com.hoang.wastenot
 
-import android.content.Context
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.hoang.wastenot.databinding.ActivityMainBinding
 
@@ -22,5 +19,6 @@ class MainActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
         return true
     }*/
+
 
 }

@@ -2,7 +2,7 @@ package com.hoang.wastenot.fragments
 
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.content.Context
+import android.content.Context.*
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -45,7 +45,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
     private val userRepository: UserRepository by inject()
     private val TAG = "AddFragment"
     private var picUrl: String? = null
-    private var foodName: String? = null
     private var expDate: Date? = null
     private var category: String? = null
 
@@ -65,10 +64,21 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
         setOnHomeBtnClicked(view)
         setOnUploadPictureBtnClicked()
+
         readIngredients()
+
         setOnSaveButtonClicked()
+
         setOnDatePickerClicked(view)
+
         setStatusBarAppearance()
+        
+        onClickAddFragmentView(view)
+    }
+
+    private fun onClickAddFragmentView(v: View?) {
+        val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(v!!.windowToken, 0)
     }
 
     private fun setStatusBarAppearance() {
@@ -245,7 +255,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager = context?.getSystemService(ALARM_SERVICE) as AlarmManager
 
         alarmManager.setExact(
             AlarmManager.RTC_WAKEUP,
