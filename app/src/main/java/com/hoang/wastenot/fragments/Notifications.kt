@@ -46,6 +46,7 @@ class Notifications : BroadcastReceiver() {
     }
 
     private fun createNotificationChannel(context: Context) {
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Food alarm"
             val description = "Notifications"
