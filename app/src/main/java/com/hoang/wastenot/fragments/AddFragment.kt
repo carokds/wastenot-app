@@ -9,12 +9,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -66,7 +64,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
         binding = FragmentAddBinding.bind(view)
 
         setOnHomeBtnClicked(view)
-
         setOnUploadPictureBtnClicked()
         readIngredients()
         setOnSaveButtonClicked()
@@ -107,12 +104,13 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
         ArrayAdapter(requireContext(), R.layout.item_category, categories).also { adapter ->
             textView.setAdapter(adapter)
-            textView.doOnTextChanged{ inputText, _, _, _ ->
-            if (categories.contains("${textView.text}")) {
-                textView.error = null
-            } else {
-                textView.error = "Choose a category from the list"
-            }}
+            textView.doOnTextChanged { inputText, _, _, _ ->
+                if (categories.contains("${textView.text}")) {
+                    textView.error = null
+                } else {
+                    textView.error = "Choose a category from the list"
+                }
+            }
         }
 
     }
@@ -139,7 +137,6 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
                     setTime(it)
 
                 }
-
         }
     }
 
@@ -234,9 +231,9 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
 
     private fun setTime(time: Long) {
         calendar.timeInMillis = time - 86400000.toLong()
-        calendar.set(HOUR_OF_DAY, 9)
-        calendar.set(MINUTE, 0)
-        calendar.set(SECOND, 0)
+        calendar.set(HOUR_OF_DAY, 23)
+        calendar.set(MINUTE, 35)
+        calendar.set(SECOND, 30)
     }
 
     private fun setAlarm() {
@@ -255,23 +252,8 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             calendar.timeInMillis,
             pendingIntent
         )
-
-        Toast.makeText(context, "Alarm set to ${calendar.time}", Toast.LENGTH_LONG).show()
     }
 
-
-
-    /* private fun createNotificationChannel() {
-         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-             val name = "Notification Channel"
-             val description = "channel description"
-             val importance = NotificationManager.IMPORTANCE_DEFAULT
-             val channel = NotificationChannel(CHANNEL_ID, name, importance)
-             channel.description = description
-             (requireContext().getSystemService(NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(
-                 channel
-             )
-         }
-     }*/
 }
+
 

@@ -1,6 +1,10 @@
 package com.hoang.wastenot.fragments
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +15,6 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.CalendarConstraints
@@ -36,6 +39,10 @@ import java.util.*
 class BottomSheetAddFragment : BottomSheetDialogFragment(), KoinComponent {
 
     private lateinit var binding: FragmentBottomSheetAddBinding
+    private var calendar: Calendar = Calendar.getInstance(Locale.getDefault())
+    private lateinit var alarmManager: AlarmManager
+
+
 
     private val viewModel: BarcodeSharedViewModel by activityViewModels()
     private val userRepository: UserRepository by inject()
@@ -126,8 +133,9 @@ class BottomSheetAddFragment : BottomSheetDialogFragment(), KoinComponent {
                 .addOnPositiveButtonClickListener {
                     expDate = Date(it)
                     binding.etDate.setText("${expDate!!.date}-${expDate!!.month + 1}-${expDate!!.year - 100}")
-
+                    setTime(it)
                 }
+
         }
     }
 
@@ -174,7 +182,36 @@ class BottomSheetAddFragment : BottomSheetDialogFragment(), KoinComponent {
                 }
             dismiss()
             Toast.makeText(activity, "Product added!", Toast.LENGTH_SHORT).show()
+            setAlarm()
         }
+    }
+
+    private fun setTime(time: Long) {
+        calendar.timeInMillis = time - 86400000.toLong()
+        calendar.set(Calendar.HOUR_OF_DAY, 23)
+        calendar.set(Calendar.MINUTE, 35)
+        calendar.set(Calendar.SECOND, 30)
+    }
+
+    private fun setAlarm() {
+        val intent = Intent(context, Notifications::class.java)
+        intent
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            notificationId,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        alarmManager.setExact(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            pendingIntent
+        )
+
+        Toast.makeText(context, "Alarm set to ${calendar.time}", Toast.LENGTH_LONG).show()
     }
 
     override fun onCancel(dialog: DialogInterface) {
