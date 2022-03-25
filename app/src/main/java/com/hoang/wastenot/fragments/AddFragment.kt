@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
@@ -262,6 +263,7 @@ class AddFragment : Fragment(R.layout.fragment_add), KoinComponent {
             calendar.timeInMillis,
             pendingIntent
         )
+        Toast.makeText(context,"Notification set for ${calendar.time}",Toast.LENGTH_LONG).show()
     }
 
 }
