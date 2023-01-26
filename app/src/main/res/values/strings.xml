@@ -1,3 +1,48 @@
 <resources>
     <string name="app_name">WasteNot</string>
+    <string name="select_a_category">Select a category</string>
+    <string name="upload_picture">Upload Picture</string>
+    <string name="categories">categories</string>
+    <string name="save">Save</string>
+    <string name="scan_product_barcode">Scan product barcode</string>
+    <string name="hello_user">Hello user!</string>
+    <string name="what_are_we_cooking_today">What are we cooking today?</string>
+    <string name="whats_in_our_kitchen">What\'s in our kitchen?</string>
+    <string name="category">"Pick a category"</string>
+    <string name="dietary_requirements">Dietary requirements</string>
+    <string name="none">None</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="vegan">Vegan</string>
+    <string name="keto">Keto</string>
+    <string name="pescatarian">Pescatarian</string>
+    <string name="celiac">Celiac</string>
+
+    <string name="recipes">recipes</string>
+    <string name="delete">delete</string>
+    <string name="in_your_kitchen">In your kitchen</string>
+    <string name="select_a_date">Select a date</string>
+    <string name="pick_a_date">Pick a date</string>
+
+    <string-array name="facts">
+        <item>There is enough food produced in the world to feed everyone.</item>
+        <item>One third of all food produced is lost or wasted –around 1.3 billion tonnes of food –costing the global economy close to $940 billion each year.</item>
+        <item>Up to 10% of global greenhouse gases comes from food that is produced, but not eaten.</item>
+        <item>Wasting food is worse than total emissions from flying (1.9%), plastic production (3.8%) and oil extraction (3.8%).
+</item>
+        <item>If food waste was a country, it would be the third biggest emitter of greenhouse gases after USA and China.
+</item>
+        <item>Food rotting in landfill releases methane – 28x stronger than carbon dioxide.
+</item>
+        <item>Eliminating global food waste would save 4.4 million tonnes of C02 a year, the equivalent of taking one in four cars off the road.
+</item>
+        <item>One in nine people do not have enough food to eat, that’s 793 million people who are undernourished.
+</item>
+        <item>If one quarter of the food currently lost or wasted could be saved, it would be enough to feed 870 million hungry people.
+</item>
+        <item>Almost half of all fruit and vegetables produced are wasted (that’s 3.7 trillion apples).</item>
+        <item>Throwing away one burger wastes the same amount of water as a 90-minute shower.</item>
+        <item>It takes 25 years for a head of lettuce to decompose in landfill.
+</item>
+
+    </string-array>
 </resources>
